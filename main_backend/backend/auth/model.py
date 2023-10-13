@@ -1,1 +1,0 @@
-# Classes related to user authentication and authorization, which may include AuthenticationToken, UserRole, and Permission classes to manage access control.

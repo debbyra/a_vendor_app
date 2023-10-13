@@ -1,1 +1,37 @@
 # Represents customer orders, including order details, order status, customer information, and purchased items.
+from backend.db import db
+from datetime import datetime
+
+class Order(db.Model):
+   __tablename__ = "orders"
+   id = db.Column(db.Integer, primary_key = True)
+   name = db.Column(db.String(100), unique = False)
+   quantity = db.Column(db.String(20), unique = False)
+   status = db.Column(db.String(35),nullable = False, unique = False)
+   order_date = db.Column(db.String(35),nullable = False, unique = False)
+   users_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+   products_id = db.Column(db.Integer, db.ForeignKey('products.id'))
+   carts_id = db.Column(db.Integer, db.ForeignKey('carts.id'))
+   created_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
+
+   #relationships
+   notifications = db.relationship('Notification',backref='order')
+
+   def __init__(self,name,quantity,status,order_date,users_id,notifications_id,products_id,carts_id,created_at):
+      self.name = name
+      self.quantity = quantity
+      self.status = status
+      order_date = order_date
+      self.users_id = users_id
+      self.notifications_id = notifications_id
+      self.products_id = products_id
+      self.carts_id = carts_id
+      self.created_at =created_at
+
+
+
+
+
+
+
+
