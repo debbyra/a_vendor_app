@@ -1,0 +1,40 @@
+.main-section {
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.main-section h2 {
+    color: #000B4F;
+    margin: 0;
+}
+
+.top-businesses {
+    width: 70%;
+    margin-top: 2rem;
+}
+
+.ads {
+    width: 20%;
+    background-color: black;
+    border: 1px solid;
+}
+
+.ads h2 {
+    color: white;
+    text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+  .main-section {
+    flex-direction: column-reverse;
+  }
+
+  .ads {
+    width: 100%;
+  }
+
+  .top-businesses {
+    width: 100%;
+  }
+}

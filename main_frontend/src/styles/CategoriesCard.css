@@ -1,0 +1,20 @@
+.categories-card a {
+    display: flex;
+    align-items: center;
+    width: 90%;
+    padding-left: 2rem;
+    color: white;
+    text-decoration: none;
+}
+
+.categories-card a:hover {
+    color: #5672F9;
+    transition: .3s;
+    border-bottom: 1px solid #5672F9;
+}
+
+.categories-card img {
+    width: 25px;
+    height: 25px;
+    padding: 0 1rem;
+}

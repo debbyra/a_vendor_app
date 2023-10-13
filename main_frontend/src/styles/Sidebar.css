@@ -1,0 +1,167 @@
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
+@import "animate.css";
+
+h3 {
+  font-weight: normal;
+}
+
+.sidebar span {
+  font-family: "Pacifico", cursive;
+}
+
+.sidebar {
+  width: 30%;
+  height: 100vh;
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  position: fixed;
+  top: 0;
+  left: 0;
+  animation: fadeInLeftBig 2s backwards;
+  z-index: 1;
+  color: white;
+}
+
+.sidebar-content {
+  max-height: 100vh; 
+  overflow-y: auto;
+  scrollbar-width: thin; 
+  scrollbar-color: #ccc transparent; 
+  border-radius: 10px; 
+  padding-bottom: 10px;
+  padding-right: 1rem;
+  padding-bottom: 1rem;
+}
+
+.sidebar-content::-webkit-scrollbar {
+  width: 10px; 
+  height: 10px; 
+}
+
+.sidebar-content::-webkit-scrollbar-thumb {
+  background-color: #5672f9; 
+  border-radius: 10px; 
+}
+
+.close-icon {
+  position: absolute;
+  top: 1rem;
+  right: 2rem;
+  cursor: pointer;
+}
+
+.top-info {
+  display: flex;
+  color: #5672f9;
+  margin-top: 0.75rem;
+}
+
+.top-info a {
+  color: white;
+}
+
+.top-info a:hover {
+  color: #5672f9;
+  transition: 0.3s;
+}
+
+.categories,
+.settings {
+  width: 90%;
+}
+
+.categories-top,
+.settings h3 {
+  display: flex;
+}
+
+.categories-top {
+  align-items: center;
+  justify-content: space-between;
+  width: 70%;
+}
+
+.categories-top button {
+  padding: 0.5rem 0.75rem;
+}
+
+.settings > a,
+.settings > p {
+  padding: 0 2.5rem;
+}
+
+.settings > a {
+  color: white;
+  text-decoration: none;
+}
+
+.settings > a:hover {
+  color: #5672f9;
+}
+
+.settings > p > a {
+  color: #fe9800;
+}
+
+.settings > p > a:hover {
+  color: #5672f9;
+  transition: 0.5s;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 70%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); 
+  z-index: 1; 
+  display: none; 
+}
+
+.overlay.active {
+  display: block; 
+  animation: slideIn 2.3s backwards;
+}
+
+.sidebar.slide-in {
+  animation: slideIn 0.5s forwards;
+}
+
+@keyframes slideIn {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOut {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .sidebar {
+    width: 70%;
+  }
+
+  .overlay {
+    width: 30%;
+  }
+
+  .close-icon {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 20px;
+  }
+}
