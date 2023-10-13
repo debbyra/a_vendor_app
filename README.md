@@ -1,3 +1,7 @@
 # SmallBizSafari Vendor Business App
-## Current progress
+## CURRENT PROGRESS
+## Backend
 - Already set up backend classes
+
+## Frontend
+- Already set up all components of landing page
