@@ -1,0 +1,71 @@
+.top-biz-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.top-biz-section h3 {
+    margin: 0;
+    margin-top: 1rem;
+}
+
+.business-section {
+  display: flex;
+  align-items: center;
+  background-color: #d9d9d9;
+  padding: 1rem;
+  font-size: 0.8rem;
+  overflow-x: auto; /* Enable horizontal scrolling */
+  scrollbar-width: none; /* Hide scrollbar in Firefox */
+  -ms-overflow-style: none; /* Hide scrollbar in IE/Edge */
+  scrollbar-width: thin; /* Set scrollbar width to thin */
+  scrollbar-color: #ccc transparent; /* Set scrollbar color */
+  border-radius: 10px; /* Add rounded corners */
+  padding-bottom: 10px; /* Add padding to the bottom to make space for the scrollbar */
+}
+
+.business-section::-webkit-scrollbar {
+  width: 10px; /* Set scrollbar width to thin */
+  height: 10px; /* Set scrollbar height */
+}
+
+.business-section::-webkit-scrollbar-thumb {
+  background-color: #000b4fcb; /* Set thumb color */
+  border-radius: 10px; /* Add rounded corners to thumb */
+}
+
+.business-section::-webkit-scrollbar-thumb:hover {
+  background-color: #000B4F; /* Change thumb color on hover */
+  transition: 3s;
+}
+
+.business-section button {
+  background-color: #fe9800;
+  border: none;
+  padding: 0.5rem;
+  font-weight: bold;
+}
+
+/* cards */
+.top-biz-card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(0, 0, 0, 0.384);
+  height: 12rem;
+  min-width: 160px;
+  margin: 0 0.2rem;
+  background-color: white;
+}
+
+.top-biz-card img {
+  width: 100%;
+  background-color: black;
+  height: 70%;
+}
+
+.top-biz-card .name {
+  text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+
+}
