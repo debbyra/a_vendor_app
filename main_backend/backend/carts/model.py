@@ -17,12 +17,11 @@ class Cart(db.Model):
    orders = db.relationship('Order',backref='cart')
    
 
-   def __init__(self,quantity,price,status,TT_price,promotion,coupon_code,created_at):
+   def __init__(self,quantity,price,status,TT_price,promotion,coupon_code):
       self.quantity = quantity
       self.price = price
       self.TT_price = TT_price
       self.status = status
       self.promotion = promotion
       self.coupon_code = coupon_code
-      self.created_at = created_at
       

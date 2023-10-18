@@ -13,10 +13,9 @@ class Setting(db.Model):
    #relationships
    
 
-   def __init__(self,name,enabled_disabled,role_user,description,created_at):
+   def __init__(self,name,enabled_disabled,role_user,description):
       self.name = name
       self.enabled_disabled = enabled_disabled
       self.role_user = role_user
       description = description
-      self.created_at = created_at
       

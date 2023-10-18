@@ -15,6 +15,7 @@ def businesses():
      businesses= Business.query.all()
      results = [
             {
+                "id":business.id,
                 "bus_name":business.bus_name,
                 "email_addr":business.email_addr,
                 "logo":business.logo,
@@ -29,7 +30,6 @@ def businesses():
 
 # create new
 @all_businesses.route('/create', methods =['POST','GET'])
-@jwt_required()
 def new_business():
     
     bus_name = request.json['bus_name']
@@ -39,7 +39,6 @@ def new_business():
     logo = request.json['logo']
     description = request.json['description']
     employees = request.json['employees']
-    created_at = request.json['created_at']
     
 
     #validations
@@ -63,7 +62,7 @@ def new_business():
     
 
     #storing the new reviews data
-    new_business = Business( bus_name=bus_name, email_addr=email_addr,phone=phone,description=description,logo=logo,employees=employees,created_at=created_at)
+    new_business = Business( bus_name=bus_name, email_addr=email_addr,phone=phone,description=description,logo=logo,employees=employees)
 
     #add the new review
     db.session.add(new_business)
@@ -85,7 +84,7 @@ def get_business(id):
             "logo":business.logo,
             "city":business.city
         } 
-    db.session.add(business)
+    db.session.add(response)
     db.session.commit()
     return jsonify({'message':'successful '}), 200
 
@@ -107,4 +106,4 @@ def delete_business(id):
      business = Business.query.get_or_404(id)
      db.session.delete(business)
      db.session.commit()
-     return jsonify({'message':f'{business.name} successfully deleted'}) ,200
+     return jsonify({'message':f'{business.bus_name} successfully deleted'}) ,200

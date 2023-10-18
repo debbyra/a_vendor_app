@@ -15,19 +15,23 @@ def reviews():
      reviews= Review.query.all()
      results = [
             {
+                "id":review.id,
                 "review":review.review,
-                "created_at": review.created_at.strftime('%Y-%m-%d %H:%M:%S')
+                "created_at": review.created_at.strftime('%Y-%m-%d %H:%M:%S'),
+                "users_id":review.users_id,
+                "orders_id":results.orders_id
             }for review in reviews]
         
      return {"count":len(reviews), "reviews":results} 
 
 # create new
 @all_reviews.route('/create', methods =['POST','GET'])
-@jwt_required()
 def new_review():
     
     review = request.json['review']
-    created_at = request.json['created_at']
+    orders_id = request.json['orders_id']
+    users_id = request.json['users_id']
+
 
     #validations
     if not review:
@@ -35,7 +39,7 @@ def new_review():
     
 
     #storing the new reviews data
-    new_review = Review( review=review,created_at=created_at)
+    new_review = Review( review=review,users_id=users_id,orders_id=orders_id)
 
     #add the new review
     db.session.add(new_review)
@@ -51,7 +55,9 @@ def get_review(id):
     response = {
             "id":review.id,
             "review":review.review,
-            "created_at": review.created_at.strftime('%Y-%m-%d %H:%M:%S')
+            "created_at": review.created_at.strftime('%Y-%m-%d %H:%M:%S'),
+            "orders_id":review.orders_id,
+            "users_id":review.users_id
         } 
     db.session.add(response)
     db.session.commit()

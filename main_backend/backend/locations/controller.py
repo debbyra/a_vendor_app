@@ -15,25 +15,23 @@ def locations():
      locations= Location.query.all()
      results = [
             {
+                "id":location.id,
                 "lo_name":location.lo_name,
                 "strt_address":location.strt_address,
                 "phone":location.phone,
-                "city":location.city,
-                "facilities":location.facilities
+                "city":location.city
             }for location in locations]
         
      return {"count":len(locations), "locations":results} 
 
 # create new
 @all_locations.route('/create', methods =['POST','GET'])
-@jwt_required()
 def new_location():
     
     lo_name = request.json['lo_name']
     strt_address = request.json['strt_address']
     phone = request.json['phone']
     city = request.json['city']
-    facilities = request.json['facilities']
 
     #validations
     if not lo_name:
@@ -50,7 +48,7 @@ def new_location():
 
 
     #storing the new reviews data
-    new_location = Location( lo_name=lo_name, strt_address=strt_address,phone=phone,facilities=facilities)
+    new_location = Location( lo_name=lo_name, strt_address=strt_address,phone=phone,city=city)
 
     #add the new review
     db.session.add(new_location)
@@ -89,4 +87,4 @@ def delete_location(id):
      location = Location.query.get_or_404(id)
      db.session.delete(location)
      db.session.commit()
-     return jsonify({'message':f'{location.name} successfully deleted'})
+     return jsonify({'message':f'{location.lo_name} successfully deleted'})

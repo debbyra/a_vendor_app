@@ -15,6 +15,7 @@ def settings():
      settings= Setting.query.all()
      results = [
             {
+                "id":setting.id,
                 "name":setting.name,
                 "enabled_disabled":setting.enabled_disabled,
                 "role_user":setting.role_user,
@@ -26,14 +27,12 @@ def settings():
 
 # create new
 @all_settings.route('/create', methods =['POST','GET'])
-@jwt_required()
 def new_setting():
     
     name = request.json['name']
     enabled_disabled = request.json['enabled_disabled']
     role_user = request.json['role_user']
     description = request.json['description']
-    created_at = request.json['created_at']
 
     #validations
     if not name:
@@ -47,7 +46,7 @@ def new_setting():
 
 
     #storing the new settings 
-    new_setting = Setting( name=name, enabled_disabled=enabled_disabled,role_user=role_user,description=description,created_at=created_at)
+    new_setting = Setting( name=name, enabled_disabled=enabled_disabled,role_user=role_user,description=description)
 
     #add the new review
     db.session.add(new_setting)

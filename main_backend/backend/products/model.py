@@ -16,12 +16,11 @@ class Product(db.Model):
    #relationships
    orders = db.relationship('Order',backref='Order')
 
-   def __init__(self,name,price,origin,image,users_id,businesses_id,created_at):
+   def __init__(self,name,price,origin,image,users_id,businesses_id):
       self.name = name
       self.price = price
       self.image = image
       self.origin = origin
       self.users_id = users_id
       self.businesses_id = businesses_id
-      self.created_at = created_at
       

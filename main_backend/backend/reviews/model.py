@@ -11,8 +11,7 @@ class Review(db.Model):
    created_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
 
    
-   def __init__(self,review,users_id,orders_id,created_at):
+   def __init__(self,review,users_id,orders_id):
       self.review = review
       self.users_id = users_id
       self.orders_id = orders_id
-      self.created_at = created_at

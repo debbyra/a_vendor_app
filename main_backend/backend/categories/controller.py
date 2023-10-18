@@ -55,7 +55,7 @@ def new_category():
 
 
     #storing the new reviews data
-    new_category = Category( name=name, strt_address=strt_address,phone=phone,facilities=facilities,created_at=created_at)
+    new_category = Category( name=name, strt_address=strt_address,phone=phone)
 
     #add the new review
     db.session.add(new_category)
@@ -93,7 +93,6 @@ def update_category(id):
 
 #deleting
 @all_categories.route('/delete/<int:id>',methods = ['DELETE'])
-@jwt_required()
 def delete_category(id):
      category = Category.query.get_or_404(id)
      db.session.delete(category)

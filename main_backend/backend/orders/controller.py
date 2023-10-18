@@ -15,6 +15,7 @@ def orders():
      orders= Order.query.all()
      results = [
             {
+                "id":orders.id,
                 "name":orders.name,
                 "quantity":orders.quantity,
                 "status":order.status,
@@ -26,14 +27,15 @@ def orders():
 
 # create new
 @all_orders.route('/create', methods =['POST','GET'])
-@jwt_required()
 def new_order():
     
     name = request.json['name']
     quantity = request.json['quantity']
     status = request.json['status']
     order_date = request.json['order_date']
-    created_at = request.json['created_at']
+    users_id = request.json['users_id']
+    carts_id = request.json['carts_id']
+    products_id = request.json['products_id']
 
     #validations
     if not name:
@@ -43,7 +45,7 @@ def new_order():
         return jsonify({'error': "Enter the quantity"})
 
     #storing the new reviews data
-    new_order = Order( name=name, quantity=quantity,status=status,order_date=order_date,created_at=created_at)
+    new_order = Order( name=name, quantity=quantity,status=status,order_date=order_date,users_id=users_id,carts_id=carts_id,products_id=products_id)
 
     #add the new review
     db.session.add(new_order)
@@ -62,7 +64,10 @@ def get_order(id):
             "quantity":order.quantity,
             "status":order.status,
             "order_date":order.order_date,
-            "created_at": order.created_at.strftime('%Y-%m-%d %H:%M:%S')
+            "created_at": order.created_at.strftime('%Y-%m-%d %H:%M:%S'),
+            "users_id":order.users_id,
+            "carts_id":order.carts_id,
+            "products_id":order.products_id
         } 
     db.session.add(response)
     db.session.commit()

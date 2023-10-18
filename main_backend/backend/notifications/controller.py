@@ -15,6 +15,7 @@ def notifications():
      notifications= Notification.query.all()
      results = [
             {
+                "id":notification.id,
                 "name":notification.name,
                 "quantity":notification.quantity,
                 "status":notification.status,
@@ -25,7 +26,7 @@ def notifications():
 
 # create new
 @all_notifications.route('/create', methods =['POST','GET'])
-@jwt_required()
+
 def new_notification():
     
     description = request.json['description']

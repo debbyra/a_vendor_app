@@ -19,7 +19,7 @@ class Business(db.Model):
    products = db.relationship('Product', backref='business')
    categories = db.relationship('Category',backref='business')
 
-   def __init__(self,bus_name,email_addr,logo,phone,description,employees,locations_id,created_at):
+   def __init__(self,bus_name,email_addr,logo,phone,description,employees,locations_id):
       self.bus_name = bus_name
       self.email_addr = email_addr
       self.phone = phone
@@ -27,4 +27,3 @@ class Business(db.Model):
       self.description = description
       self.employees = employees
       self.locations_id = locations_id
-      self.created_at = created_at

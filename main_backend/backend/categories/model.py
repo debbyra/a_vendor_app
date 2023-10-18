@@ -13,9 +13,8 @@ class Category(db.Model):
    #relationships
    
 
-   def __init__(self,name,description,image,businesses_id,created_at):
+   def __init__(self,name,description,image,businesses_id):
       self.name = name
       self.description = description
       self.image = image
       self.businesses_id = businesses_id
-      self.created_at = created_at

@@ -2,6 +2,7 @@
 from flask import jsonify, request, Blueprint
 from werkzeug.security import check_password_hash, generate_password_hash
 from backend.users.model import User
+from flask_jwt_extended import jwt_required
 from backend.db import db
 
 #creating a blue print of the users
@@ -14,11 +15,13 @@ def users():
      users= User.query.all()
      results = [
             {
+                "id":user.id,
                "name":user.name,
                "password":user.password,
                "email":user.email,
                "contact":user.contact,
-               "created_at": user.created_at.strftime('%Y-%m-%d %H:%M:%S')
+               "created_at": user.created_at.strftime('%Y-%m-%d %H:%M:%S'),
+               "locations_id":user.locations_id
             }for user in users]
         
      return {"count":len(users), "users":results} 
@@ -30,8 +33,7 @@ def new_user():
     email = request.json['email']
     password = request.json['password']
     contact = request.json['contact']
-    created_at = request.json['created_at']
-
+    locations_id = request.json['locations_id']
 
     #validations
     if not name:
@@ -60,8 +62,8 @@ def new_user():
 
     #storing the new reviews data
      #creating a hashed password for the database
-    hashed_password = generate_password_hash(password,method='sha256')
-    new_user = User(name=name, password=hashed_password, email=email, contact=contact,created_at=created_at)
+    hashed_password = generate_password_hash(password)
+    new_user = User(name=name, password=hashed_password, email=email, contact=contact,locations_id=locations_id)
 
     #add the new review
     db.session.add(new_user)
@@ -80,10 +82,11 @@ def get_user(id):
             "email":user.email,
             "contact":user.contact,
             "password":user.password,
-            "created_at": user.created_at.strftime('%Y-%m-%d %H:%M:%S')
+            "created_at": user.created_at.strftime('%Y-%m-%d %H:%M:%S'),
+            "locations_id":user.locations_id
         } 
 
-    db.session.add(user)
+    db.session.add(response)
     db.session.commit() 
     return jsonify({'success': True, 'user': response, 'message':'success'})
 
@@ -99,6 +102,7 @@ def update_user(id):
 
 #deleting
 @all_users.route('/delete/<int:id>',methods = ['DELETE'])
+@jwt_required()
 def delete_user(id):
      user = User.query.get_or_404(id)
      db.session.delete(user)

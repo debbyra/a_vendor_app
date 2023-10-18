@@ -15,25 +15,29 @@ def products():
      products= Product.query.all()
      results = [
             {
+                "id":product.id,
                 "product":product.name,
                 "price":product.price,
                 "image":product.image,
                 "origin":product.origin,
-                "created_at": product.created_at.strftime('%Y-%m-%d %H:%M:%S')
+                "created_at": product.created_at.strftime('%Y-%m-%d %H:%M:%S'),
+                "users_id":product.users_id,
+                "businesses_id":product.businesses_id
             }for product in products]
         
      return {"count":len(products), "products":results} 
 
 # create new
 @all_products.route('/create', methods =['POST','GET'])
-@jwt_required()
 def new_product():
     
     name = request.json['name']
     price = request.json['price']
     image = request.json['image']
     origin = request.json['origin']
-    created_at = request.json['created_at']
+    users_id = request.json['users_id']
+    businesses_id = request.json['businesses_id']
+
 
     #validations
     if not name:
@@ -46,7 +50,7 @@ def new_product():
         return jsonify({'error':"Add an image"})
 
     #storing the new reviews data
-    new_product = Product( name=name, price=price, origin=origin, image=image, created_at=created_at)
+    new_product = Product( name=name, price=price, origin=origin, image=image, businesses_id=businesses_id,users_id=users_id)
 
     #add the new review
     db.session.add(new_product)
@@ -65,7 +69,9 @@ def get_product(id):
             "price":product.price,
             "image":product.image,
             "origin":product.origin,
-            "created_at": product.created_at.strftime('%Y-%m-%d %H:%M:%S')
+            "created_at": product.created_at.strftime('%Y-%m-%d %H:%M:%S'),
+            "businesses_id":product.businesses_id,
+            "users_id":product.users_id
         } 
     db.session.add(response)
     db.session.commit()

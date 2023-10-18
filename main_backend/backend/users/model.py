@@ -26,13 +26,12 @@ class User(db.Model):
    businesses = db.relationship('Business',backref='user') 
    notifications = db.relationship('Notification',backref='user')
 
-   def __init__(self,name,password,contact,email,locations_id,created_at):
+   def __init__(self,name,password,contact,email,locations_id):
       self.name = name
       self.password = password
       self.email = email
       self.contact = contact
       self.locations_id = locations_id
-      self.created_at = created_at
       
 
 

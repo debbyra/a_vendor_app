@@ -15,6 +15,7 @@ def carts():
      carts= Cart.query.all()
      results = [
             {
+                "id":cart.id,
                 "quantity":cart.quantity,
                 "price":cart.price,
                 "TT_price":cart.TT_price,
@@ -29,7 +30,6 @@ def carts():
 
 # create new
 @all_carts.route('/create', methods =['POST','GET'])
-@jwt_required()
 def new_cart():
     
     quantity = request.json['quantity']
@@ -38,7 +38,6 @@ def new_cart():
     status = request.json['status']
     promotion = request.json['promotion']
     coupon_code = request.json['coupon_code']
-    created_at = request.json['created_at']
 
     #validations
     if not quantity:
@@ -55,7 +54,7 @@ def new_cart():
 
 
     #storing the new carts data
-    new_cart = Cart( quantity=quantity, price=price,TT_price=TT_price,promotion=promotion, coupon_code=coupon_code,created_at= created_at)
+    new_cart = Cart( quantity=quantity, price=price,TT_price=TT_price,promotion=promotion, coupon_code=coupon_code)
 
     #add the new review
     db.session.add(new_cart)
@@ -100,4 +99,4 @@ def delete_cart(id):
      cart = cart.query.get_or_404(id)
      db.session.delete(cart)
      db.session.commit()
-     return jsonify({'message':f'{cart.name} successfully deleted'})
+     return jsonify({'message':f'{cart.id} successfully deleted'})
