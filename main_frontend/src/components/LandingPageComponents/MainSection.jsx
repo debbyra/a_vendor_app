@@ -1,5 +1,6 @@
 import "../../styles/MainSection.css";
 import TopBizSection from "./TopBizSection";
+import Ads from "../Ads";
 
 const MainSection = () => {
   return (
@@ -16,9 +17,7 @@ const MainSection = () => {
         <TopBizSection title="Home Appliances" />
         <TopBizSection title="Retail" />
       </div>
-      <div className="ads">
-        <h2>ADS</h2>
-      </div>
+      <Ads />
     </div>
   );
 };

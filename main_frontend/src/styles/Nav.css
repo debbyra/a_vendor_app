@@ -81,7 +81,7 @@
   border-radius: 5px;
   border: 1px solid rgba(0, 0, 0, 0.644);
   background-color: white;
-  color: white;
+  color: black;
   width: 90%;
   margin: 0.25rem;
 }
@@ -125,3 +125,18 @@
 .hidden {
   display: none;
 } 
+
+.logout {
+  border: none;
+  padding: 1rem 1.2rem;
+  background-color: rgba(255, 0, 0, 0.87);
+  color: white;
+  border-radius: 10px;
+  font-family: "Open Sans";
+  font-weight: bold;
+}
+
+.logout:hover {
+  background-color: red;
+  transition: 1s;
+}

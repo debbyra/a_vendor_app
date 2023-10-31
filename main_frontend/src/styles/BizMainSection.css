@@ -1,0 +1,62 @@
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
+
+.biz-main-section {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+    padding: 0 1rem 1rem 1rem;
+}
+
+.biz-main-section .main-content {
+    width: 80%;
+}
+
+.biz-main-section h3 {
+    font-family: "Pacifico", cursive;
+    color: #000B4F;
+    margin: 0;
+}
+
+#my-video {
+    width: 90%;
+    /* border: 1px solid red; */
+    height: 20rem;
+    margin-top: 0;
+}
+
+.main-content-div {
+    margin-top: 2rem;
+    width: 100%;
+}
+
+#biz-pdts {
+    display: flex;
+    flex-direction: column;
+}
+
+#biz-pdts > div {
+  margin-bottom: 1rem;
+}
+
+#biz-pdts h4 {
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .biz-main-section {
+        flex-direction: column-reverse;
+    }
+
+    .biz-main-section .main-content {
+        width: 100%;
+    }
+
+    #my-video {
+        width: 100%;
+        height: 15rem;
+    }
+
+    #biz-pdts {
+        width: 100%;
+    }
+}

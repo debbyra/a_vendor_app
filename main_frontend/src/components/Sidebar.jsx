@@ -2,8 +2,15 @@ import React from "react";
 import PropTypes from "prop-types";
 import CategoriesCard from "../components/LandingPageComponents/CategoriesCard";
 import "../styles/Sidebar.css";
+import { useNavigate } from "react-router-dom";
 
 const Sidebar = (props) => {
+  const navigate = useNavigate();
+
+  const onAccountClick = () => {
+    navigate("/dashboard/account");
+  }
+
   const closeSidebar = () => {
     console.log("Closing sidebar"); // Debugging
     props.toggleSidebar(); // Use toggleSidebar to close the sidebar
@@ -50,7 +57,7 @@ const Sidebar = (props) => {
             <h3>
               <span>Settings</span>
             </h3>
-            <a href="#">Your Account</a>
+            <a href="" onClick={onAccountClick}>Your Account</a>
           </div>
         </div>
       </div>

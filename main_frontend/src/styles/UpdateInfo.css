@@ -1,0 +1,53 @@
+.update-info {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    margin: .5rem auto .5rem auto;
+    background-color: rgba(0, 0, 0, 0.836);
+    padding: 1em;
+    color: rgba(255, 255, 255, 0.836);
+}
+
+.update-info h1, .update-info h4 {
+    text-align: center;
+}
+
+.update-info input {
+    padding: .5rem;
+}
+
+.update-msg {
+    color: #fe9800c0;
+}
+
+.update-info button {
+    background-color: #5672f9;
+    width: 100px;
+    align-self: center;
+    margin: 20px;
+    padding: 7px;
+    border: none;
+    color: black;
+    border-radius: 5px;
+}
+
+.update-info-labels {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0;
+    margin: .75em 0 0 0;
+    height: 20px;
+}
+
+.update-info-labels b {
+    padding: 0;
+}
+
+.update-info-labels p {
+    font-size: 14px;
+}
+
+.current {
+    color: #5672f9;
+}
