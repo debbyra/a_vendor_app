@@ -1,7 +1,7 @@
 # SmallBizSafari Vendor Business App
 ## CURRENT PROGRESS
 ## Backend
-- Backend has edited the endpoints and migrations have been made
+- Endpoints are ready but not protected : add (@jwt_required)
 
 ## Frontend
 - Added user components of the dashboard and sample business profile.
