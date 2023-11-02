@@ -2,6 +2,7 @@
 from backend.db import db
 from datetime import datetime
 
+# POS point of sale
 class Review(db.Model):
    __tablename__ = "reviews"
    id = db.Column(db.Integer, primary_key = True)
@@ -15,3 +16,5 @@ class Review(db.Model):
       self.review = review
       self.users_id = users_id
       self.orders_id = orders_id
+
+# intergrate into the shopkeepers class

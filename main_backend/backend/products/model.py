@@ -14,13 +14,11 @@ class Product(db.Model):
    created_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
 
    #relationships
-   orders = db.relationship('Order',backref='Order')
 
-   def __init__(self,name,price,origin,image,users_id,businesses_id):
+   def __init__(self,name,price,origin,image,businesses_id):
       self.name = name
       self.price = price
       self.image = image
       self.origin = origin
-      self.users_id = users_id
       self.businesses_id = businesses_id
       
