@@ -4,7 +4,7 @@
 - Backend has edited the endpoints and migrations have been made
 
 ## Frontend
-- Added user components; only left with user reviews components.
+- Added user components; only left with user reviews and geolocation components.
 - To start on vendor components.
 - To start on connecting frontend and backend; user authentication first. 
 
