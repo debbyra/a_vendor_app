@@ -13,5 +13,9 @@
 
 ## Available frontend routes
 - Login; path="/dashboard"
+- Logout; path="/"
+- Sidebar: Health and Beauty; path="/dashboard/health-and-beauty"
+- Top Businesses in Health and Beauty Page; path="/dashboard/top-in-health-and-beauty"
 - Business Profile Page; path="/dashboard/biz_profile"
 - Account Page; path="/dashboard/account"
+- Cart Page (click on cart icon); path="/dashboard/cart-page"

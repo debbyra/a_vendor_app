@@ -9,7 +9,10 @@ const MainSection = () => {
         <h2>
           <span>Top Businesses In...</span>
         </h2>
-        <TopBizSection title="Health and Beauty" />
+        <TopBizSection
+          title="Health and Beauty"
+          url="/dashboard/top-in-health-and-beauty"
+        />
         <TopBizSection title="Services" />
         <TopBizSection title="Furniture" />
         <TopBizSection title="Electronics" />

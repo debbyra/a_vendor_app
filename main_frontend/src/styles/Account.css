@@ -1,0 +1,23 @@
+.acc-main-section {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.user-orders {
+    border: 1px solid;
+    padding: 4rem;
+    border-radius: 5px;
+    background-color: rgba(128, 128, 128, 0.11);
+    text-align: center;
+}
+
+.user-orders h2 {
+    margin: 0;
+    padding: 0;
+}
+
+.user-orders a {
+    color: #000B4F;
+}

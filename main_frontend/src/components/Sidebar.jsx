@@ -7,6 +7,10 @@ import { useNavigate } from "react-router-dom";
 const Sidebar = (props) => {
   const navigate = useNavigate();
 
+  const onHealthAndBeautyClick = () => {
+    navigate("/dashboard/health-and-beauty");
+  }
+
   const onAccountClick = () => {
     navigate("/dashboard/account");
   }
@@ -36,10 +40,12 @@ const Sidebar = (props) => {
               </h3>
               <button className="sell-button">SELL</button>
             </div>
-            <CategoriesCard
-              src={`/icons/health.png`}
-              name={"Health and Beauty"}
-            />
+            <div className="health-and-beauty" onClick={onHealthAndBeautyClick}>
+              <CategoriesCard
+                src={`/icons/health.png`}
+                name={"Health and Beauty"}
+              />
+            </div>
             <CategoriesCard src={`/icons/services.png`} name={"Services"} />
             <CategoriesCard src={`/icons/furniture.png`} name={"Furniture"} />
             <CategoriesCard
@@ -57,7 +63,9 @@ const Sidebar = (props) => {
             <h3>
               <span>Settings</span>
             </h3>
-            <a href="" onClick={onAccountClick}>Your Account</a>
+            <a href="" onClick={onAccountClick}>
+              Your Account
+            </a>
           </div>
         </div>
       </div>
