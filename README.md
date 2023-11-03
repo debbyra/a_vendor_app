@@ -4,8 +4,8 @@
 - Backend has edited the endpoints and migrations have been made
 
 ## Frontend
-- Added user components of the dashboard and sample business profile.
-- Started on account page, but not finished yet.
+- Added user components; only left with user reviews components.
+- To start on vendor components.
 - To start on connecting frontend and backend; user authentication first. 
 
 ### HOW TO RUN FRONTEND: 
