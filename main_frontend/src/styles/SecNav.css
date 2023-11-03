@@ -26,3 +26,21 @@
     border-radius: 10px;
     border: none;
 }
+
+.cart-info {
+    margin-left: auto;
+    display: flex;
+    color: white;
+    font-weight: bold;
+    align-items: center;
+    cursor: pointer;
+    margin-right: .5rem;
+}
+
+.cart-info img {
+    width: 32px;
+    height: 26px;
+    padding: 0;
+    margin-right: .2rem;
+    font-size: 1.2rem;
+}

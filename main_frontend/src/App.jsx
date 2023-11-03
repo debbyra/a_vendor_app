@@ -3,6 +3,9 @@ import LandingPage from "./pages/LandingPage";
 import UserDashboard from "./pages/UserDashboard";
 import BusinessProfilePage from "./pages/BusinessProfilePage";
 import AccountPage from "./pages/AccountPage";
+import HealthAndBeauty from "./pages/HealthAndBeautyPage";
+import TopInHealthAndBeauty from "./pages/TopInHealthAndBeauty";
+import CartPage from "./pages/CartPage";
 import "./App.css";
 
 const IndexLandingPage = () => (
@@ -22,6 +25,15 @@ function App() {
           element={<BusinessProfilePage />}
         />
         <Route path="/dashboard/account" element={<AccountPage />} />
+        <Route
+          path="/dashboard/health-and-beauty"
+          element={<HealthAndBeauty />}
+        />
+        <Route
+          path="/dashboard/top-in-health-and-beauty"
+          element={<TopInHealthAndBeauty />}
+        />
+        <Route path="/dashboard/cart-page" element={<CartPage />} />
       </Routes>
     </BrowserRouter>
   );

@@ -1,0 +1,43 @@
+.cart-main-section {
+    padding: 1rem;
+    min-height: 20rem;
+}
+
+.cart-heading-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.cart-total-product-price {
+    display: flex;
+    align-items: center;
+}
+
+.cart-total-product-price h3 {
+    margin-right: 0.5rem;
+}
+
+.browse-button-div {
+    margin: 2rem;
+    padding: 1rem;
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    background-color: white;
+}
+
+.browse-button-div img {
+    width: 7rem;
+    height: 7rem;
+}
+
+.browse-button-div a {
+    color: #000B4F;
+    margin-left: .5rem;
+}
+
+footer {
+    font-size: .75rem;
+    background-color: #eaeded;
+}
