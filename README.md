@@ -4,8 +4,8 @@
 - Backend has edited the endpoints and migrations have been made
 
 ## Frontend
-- Added user components; only left with user reviews and geolocation components.
-- To start on vendor components.
+- Added user components; only left with geolocation components.
+- Finished vendor components.
 - To start on connecting frontend and backend; user authentication first. 
 
 ### HOW TO RUN FRONTEND: 
@@ -19,3 +19,5 @@
 - Business Profile Page; path="/dashboard/biz_profile"
 - Account Page; path="/dashboard/account"
 - Cart Page (click on cart icon); path="/dashboard/cart-page"
+
+NB: Check App.jsx for other routes

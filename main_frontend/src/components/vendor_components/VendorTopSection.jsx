@@ -1,17 +1,21 @@
 import "../../styles/TopSection.css";
 import { Rating } from "@mui/material";
 
-const TopSection = () => {
+const VendorTopSection = () => {
   return (
     <div className="hero-section" id="top-section">
       <div className="">
         <div className="biz-pfp">
-          <img src="/images/profile-user.png" alt="" id="biz-pfp-img" />
+          <a href="/dashboard/account">
+            <img src="/images/profile-user.png" alt="" id="biz-pfp-img" />
+          </a>
         </div>
         <div className="biz-description">
           <div className="biz-heading-and-rating">
             <h2>Mama Maria's Beauty Shop</h2>
-            <Rating name="read-only" value={4} readOnly />
+            <a href="/dashboard/all_ratings">
+              <Rating name="read-only" value={4} readOnly />
+            </a>
           </div>
           <p>
             We transform beauty into an art. Discover the ultimate blend of
@@ -41,4 +45,4 @@ const TopSection = () => {
   );
 };
 
-export default TopSection;
+export default VendorTopSection;

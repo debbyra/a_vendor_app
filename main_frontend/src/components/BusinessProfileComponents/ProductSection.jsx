@@ -1,22 +1,27 @@
 import ProductCard from "./ProductCard";
 import "../../styles/ProductSection.css";
 import "../../styles/TopBizSection.css";
+import { Link } from "react-router-dom";
 
 const ProductSection = (props) => {
   return (
     <div className="product-section top-biz-section">
-      <h4>
+      <h3>
         <span>{props.title}</span>
-      </h4>
+      </h3>
       <div className="business-section">
-        <ProductCard image={"/video/thumbnail.jpg"} name="Braids" />
+        <Link to={"/dashboard/single_product"}>
+          <ProductCard image={"/video/thumbnail.jpg"} name="Braids" />
+        </Link>
         <ProductCard image={"/video/thumbnail.jpg"} name="Braids" />
         <ProductCard image={"/video/thumbnail.jpg"} name="Braids" />
         <ProductCard image={"/video/thumbnail.jpg"} name="Braids" />
         <ProductCard image={"/video/thumbnail.jpg"} name="Braids" />
         <ProductCard image={"/video/thumbnail.jpg"} name="Braids" />
         <button>
-          <span>See More</span>
+          <span>
+            <a href="/dashboard/business_products">See More</a>
+          </span>
         </button>
       </div>
     </div>

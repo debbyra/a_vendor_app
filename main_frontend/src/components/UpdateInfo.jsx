@@ -6,7 +6,6 @@ const UpdateInfo = () => {
       <>
         {/* Heading */}
         <h1>Update your info</h1>
-        <h4 className="update-msg">Please fill in all fields</h4>
 
         {/* Show success message if submitted */}
         {/* {hasSubmitted ? (
@@ -14,6 +13,11 @@ const UpdateInfo = () => {
         ) : (
           <h4 className="update-msg">Please fill in all fields</h4>
         )} */}
+
+        <div className="change-profile-picture">
+          <img src="/images/profile-user.png" alt="" />
+          <input type="file" className="custom-file-input" id="profile-img-upload" />
+        </div>
 
         {/* First Name Label */}
         <label htmlFor="first-name" className="update-info-labels">

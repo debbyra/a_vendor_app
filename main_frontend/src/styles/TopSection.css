@@ -22,6 +22,15 @@
   left: 0;
 }
 
+.biz-heading-and-rating {
+  display: flex;
+  align-items: center;
+}
+
+.biz-heading-and-rating h2 {
+  margin-right: .5rem;
+}
+
 .biz-description {
   margin-left: 2rem;
 }

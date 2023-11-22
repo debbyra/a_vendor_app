@@ -2,6 +2,7 @@ import DashNav from "../components/UserDashboardComponents/DashNav";
 import SecNav from "../components/SecNav";
 import TopSection from "../components/BusinessProfileComponents/TopSection";
 import BizMainSection from "../components/BusinessProfileComponents/BizMainSection";
+import RatingSection from "../components/RatingSection";
 
 const BusinessProfilePage = () => {
   return (
@@ -10,6 +11,7 @@ const BusinessProfilePage = () => {
       <SecNav />
       <TopSection />
       <BizMainSection />
+      <RatingSection />
     </div>
   );
 };

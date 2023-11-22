@@ -1,0 +1,19 @@
+.all-ratings-main {
+    /* border: 1px solid red; */
+    text-align: center;
+}
+
+.user-ratings {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.user-ratings > div {
+    width: 250px;
+    font-size: .75rem;
+}
+
+.user-ratings > div img {
+    width: 100%;
+}

@@ -1,10 +1,10 @@
 .update-info {
     display: flex;
     flex-direction: column;
-    width: 300px;
+    /* width: 300px; */
     margin: .5rem;
-    background-color: rgba(0, 0, 0, 0.836);
-    padding: 1em;
+    background-color: rgba(0, 0, 0, 0.877);
+    padding: 1em 3em;
     color: rgba(255, 255, 255, 0.836);
 }
 
@@ -50,4 +50,57 @@
 
 .current {
     color: #5672f9;
+}
+
+/* UPDATE PROFILE */
+.change-profile-picture {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.change-profile-picture img {
+ width: 50%;
+ height: 50%;
+ background-color: white;
+ border-radius: 50%;
+}
+
+.custom-file-input {
+  color: transparent;
+  display: flex;
+  flex-direction: column;
+}
+.custom-file-input::-webkit-file-upload-button {
+  visibility: hidden;
+}
+.custom-file-input::before, #profile-img-upload::before {
+  content: 'Upload new Profile Image';
+  color: black;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  background: -webkit-linear-gradient(top, #f9f9f9, #e3e3e3);
+  border: 1px solid #999;
+  border-radius: 3px;
+  padding: 5px;
+  outline: none;
+  white-space: nowrap;
+  /* -webkit-user-select: none; */
+  cursor: pointer;
+  text-shadow: 1px 1px #fff;
+  font-weight: 700;
+  font-size: 10pt;
+  margin: 0 auto;
+}
+.custom-file-input:hover::before {
+  border-color: black;
+}
+.custom-file-input:active {
+  outline: 0;
+}
+.custom-file-input:active::before {
+  background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9); 
 }

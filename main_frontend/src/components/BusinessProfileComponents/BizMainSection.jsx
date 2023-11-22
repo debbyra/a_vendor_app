@@ -11,7 +11,7 @@ const BizMainSection = () => {
               <h3>Take a tour into our shop...</h3>
               <video
                 id="my-video"
-                class="video-js"
+                className="video-js"
                 controls
                 preload="auto"
                 width="640"
@@ -20,7 +20,7 @@ const BizMainSection = () => {
                 data-setup="{}"
               >
                 <source src="/video/videoplayback.mp4" type="video/mp4" />
-                <p class="vjs-no-js">
+                <p className="vjs-no-js">
                   To view this video please enable JavaScript, and consider
                   upgrading to a web browser that
                   <a

@@ -1,0 +1,164 @@
+.single-product-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.single-product-main h1 {
+  margin: 1rem 0 0 0;
+  padding-bottom: 0;
+}
+
+.single-product-main h2 {
+  margin: 0;
+}
+
+.product-main-section {
+  display: flex;
+  /* width: 100vw; */
+  align-items: center;
+}
+
+.product-main-section h3 {
+  text-align: center;
+  padding: 0;
+  margin: 0;
+  font-weight: bold;
+}
+
+.product-user-order {
+  width: 50%;
+}
+
+.product-nav {
+  display: flex;
+  align-items: center;
+  background-color: #4b57db;
+  color: white;
+  padding: 0.5rem;
+}
+
+.product-nav > a {
+  color: white;
+  text-decoration: none;
+}
+
+.product-nav > a:hover {
+  transition: 2s;
+  text-decoration: underline;
+}
+
+.product-nav > img {
+  height: 2rem;
+}
+
+.product-nav h4 {
+  padding: 0 0.5rem;
+  margin: 0;
+}
+
+.product-user-order form {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+
+.product-user-order label {
+  margin-right: 0.5rem;
+  font-weight: bold;
+}
+
+.product-user-order input[type="number"], .product-user-order input[type="text"] {
+  padding: 0.75em;
+}
+
+.product-user-order input[type="submit"] {
+  width: 45%;
+  margin: 0.5rem 0;
+  padding: 0.75rem;
+  background-color: #fe9800;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.product-name-and-price {
+  display: flex;
+  align-items: center;
+}
+
+.current-quantity {
+  margin-left: 1rem;
+}
+
+.see-product-section {
+  width: 50%;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.see-product-section > .heading {
+  display: flex;
+  /* border: 1px solid; */
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.heading input[type="file"] {
+    position: relative;
+    bottom: -.5rem;
+    margin-left: .5rem;
+}
+
+.custom-file-input::before {
+  content: 'Upload new Product Video';
+}
+
+#update-pdt-form {
+    display: flex;
+    flex-direction: column;
+    /* border: 1px solid red; */
+    width: 35%;
+    padding: 1rem;
+}
+
+#update-pdt-form input  {
+    width: 90%;
+    margin: 0 auto;
+}
+
+#update-pdt-form textarea {
+    width: 90%;
+    margin: .5rem 0;
+}
+
+@media screen and (max-width:1000px) {
+    .product-main-section {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .see-product-section {
+        width: 100%;
+    }
+
+    #update-pdt-form {
+        width: 90vw;
+        border: 1px solid green;
+    }
+
+    .product-update-form {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        /* border: 1px solid red; */
+    }
+
+    .product-user-order label {
+        width: 90%;
+    } 
+}
