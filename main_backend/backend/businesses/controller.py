@@ -23,6 +23,8 @@ def businesses():
                 "city":business.city,
                 "description":business.description,
                 "employees":business.employees,
+                "locations_id":business.locations_id,
+                "users_id":business.users_id,
                 "created_at": business.created_at.strftime('%Y-%m-%d %H:%M:%S')
             }for business in businesses]
         
@@ -39,7 +41,8 @@ def new_business():
     logo = request.json['logo']
     description = request.json['description']
     employees = request.json['employees']
-    
+    users_id = request.json['users_id']
+    locations_id = request.json['locations_id']
 
     #validations
     if not bus_name:
@@ -62,7 +65,7 @@ def new_business():
     
 
     #storing the new reviews data
-    new_business = Business( bus_name=bus_name, email_addr=email_addr,phone=phone,description=description,logo=logo,employees=employees)
+    new_business = Business( bus_name=bus_name,users_id=users_id, email_addr=email_addr,locations_id=locations_id,phone=phone,description=description,logo=logo,employees=employees)
 
     #add the new review
     db.session.add(new_business)
@@ -82,7 +85,9 @@ def get_business(id):
             "phone":business.phone,
             "description":business.description,
             "logo":business.logo,
-            "city":business.city
+            "city":business.city,
+            "locations_id":business.locations_id,
+            "users_id":business.users_id
         } 
     db.session.add(response)
     db.session.commit()
@@ -101,7 +106,7 @@ def update_business(id):
 
 #deleting
 @all_businesses.route('/delete/<int:id>',methods = ['DELETE'])
-@jwt_required()
+
 def delete_business(id):
      business = Business.query.get_or_404(id)
      db.session.delete(business)

@@ -16,13 +16,11 @@ def notifications():
      results = [
             {
                 "id":notification.id,
-                "name":notification.name,
-                "quantity":notification.quantity,
-                "status":notification.status,
-                "order_date":notification.order_date
+                "description":notification.description,
+                "users_id":notification.users_id
             }for notification in notifications]
         
-     return {"count":len(notifications), "orders":results} 
+     return {"count":len(notifications), "notifications":results} 
 
 # create new
 @all_notifications.route('/create', methods =['POST','GET'])
@@ -30,12 +28,14 @@ def notifications():
 def new_notification():
     
     description = request.json['description']
+    users_id = request.json['users_id']
+
     #validations
     if not description:
        return jsonify({'error':"description is required"}), 400
 
     #storing the new data
-    new_description = Notification( description=description)
+    new_description = Notification( description=description,users_id=users_id)
 
     #add the new data
     db.session.add(new_description)
@@ -50,7 +50,8 @@ def get_notification(id):
 
     response = {
             "id":notification.id,
-            "description":notification.description
+            "description":notification.description,
+            "users_id":notification.users_id
         } 
     db.session.add(response)
     db.session.commit()
@@ -61,6 +62,7 @@ def get_notification(id):
 def update_order(id):
      notification = Notification.query.get_or_404(id)
      notification.description = request.json['description']
+     notification.users_id = request.json['users_id']
 
      db.session.add(notification)
      db.session.commit()
@@ -72,4 +74,4 @@ def delete_notification(id):
      notification = Notification.query.get_or_404(id)
      db.session.delete(notification)
      db.session.commit()
-     return jsonify({'message':f'{notification.description} successfully deleted'})
+     return jsonify({'message':'notification deleted successfully'})

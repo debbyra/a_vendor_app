@@ -16,12 +16,11 @@ def products():
      results = [
             {
                 "id":product.id,
-                "product":product.name,
+                "name":product.name,
                 "price":product.price,
                 "image":product.image,
                 "origin":product.origin,
                 "created_at": product.created_at.strftime('%Y-%m-%d %H:%M:%S'),
-                "users_id":product.users_id,
                 "businesses_id":product.businesses_id
             }for product in products]
         
@@ -35,7 +34,6 @@ def new_product():
     price = request.json['price']
     image = request.json['image']
     origin = request.json['origin']
-    users_id = request.json['users_id']
     businesses_id = request.json['businesses_id']
 
 
@@ -50,12 +48,12 @@ def new_product():
         return jsonify({'error':"Add an image"})
 
     #storing the new reviews data
-    new_product = Product( name=name, price=price, origin=origin, image=image, businesses_id=businesses_id,users_id=users_id)
+    new_product = Product( name=name, price=price, origin=origin, image=image, businesses_id=businesses_id)
 
     #add the new review
     db.session.add(new_product)
     db.session.commit()
-    return jsonify({'success':True, 'message':'Operation successful! '}), 201
+    return jsonify({'success':True, 'message':'product has been added! '}), 201
 
 
 #reading
@@ -71,7 +69,6 @@ def get_product(id):
             "origin":product.origin,
             "created_at": product.created_at.strftime('%Y-%m-%d %H:%M:%S'),
             "businesses_id":product.businesses_id,
-            "users_id":product.users_id
         } 
     db.session.add(response)
     db.session.commit()

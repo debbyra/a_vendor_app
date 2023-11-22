@@ -54,7 +54,7 @@ def new_cart():
 
 
     #storing the new carts data
-    new_cart = Cart( quantity=quantity, price=price,TT_price=TT_price,promotion=promotion, coupon_code=coupon_code)
+    new_cart = Cart( quantity=quantity, price=price,TT_price=TT_price,promotion=promotion,status=status, coupon_code=coupon_code)
 
     #add the new review
     db.session.add(new_cart)
@@ -73,6 +73,7 @@ def get_cart(id):
             "str_address":cart.str_address,
             "TT_price":cart.TT_price,
             "promotion":cart.promotion,
+            "status":cart.status,
             "coupun_code":cart.coupon_code,
             "created_at": cart.created_at.strftime('%Y-%m-%d %H:%M:%S')
         } 
@@ -84,6 +85,8 @@ def get_cart(id):
 @all_carts.route('/update/<int:id>', methods = ['PATCH'])
 def update_cart(id):
      cart = cart.query.get_or_404(id)
+     cart.quantity = request['quantity']
+     cart.price = request.json['price']
      cart.TT_price = request.json['TT_price']
      cart.promotion = request.json['promotion']
      cart.coupon_code = request.json['coupon_code']

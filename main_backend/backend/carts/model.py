@@ -1,6 +1,7 @@
 # Represents shopping carts for customers to add and manage products before placing an order.
 from backend.db import db
 from datetime import datetime
+# CRM
 
 class Cart(db.Model):
    __tablename__ = "carts"
@@ -25,3 +26,8 @@ class Cart(db.Model):
       self.promotion = promotion
       self.coupon_code = coupon_code
       
+
+# delivery system model should be added using boda bodas
+# delivery fees from the customer 
+# add function to assign a delivery
+# design an efficient supply chain
