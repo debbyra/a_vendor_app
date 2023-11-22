@@ -72,6 +72,7 @@ def new_user():
 
 #reading 
 @all_users.route('/user/<int:id>', methods = ['GET'])
+@jwt_required()
 def get_user(id):
     user = User.query.get_or_404(id)
 
@@ -92,6 +93,7 @@ def get_user(id):
 
 #updating
 @all_users.route('/update/<int:id>', methods = ['PATCH'])
+@jwt_required()
 def update_user(id):
      user = User.query.get_or_404(id)
      user.password = request.json['password']

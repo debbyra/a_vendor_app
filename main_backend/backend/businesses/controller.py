@@ -10,6 +10,7 @@ all_businesses = Blueprint('businesses', __name__,url_prefix='/businesses')
 #create the businesses endpoints
 # get all
 @all_businesses.route('/', methods =['GET'])
+@jwt_required()
 def businesses():
     
      businesses= Business.query.all()
@@ -20,7 +21,6 @@ def businesses():
                 "email_addr":business.email_addr,
                 "logo":business.logo,
                 "phone":business.phone,
-                "city":business.city,
                 "description":business.description,
                 "employees":business.employees,
                 "locations_id":business.locations_id,
@@ -32,12 +32,12 @@ def businesses():
 
 # create new
 @all_businesses.route('/create', methods =['POST','GET'])
+@jwt_required()
 def new_business():
     
     bus_name = request.json['bus_name']
     email_addr = request.json['email_addr']
     phone = request.json['phone']
-    city = request.json['city']
     logo = request.json['logo']
     description = request.json['description']
     employees = request.json['employees']
@@ -54,12 +54,6 @@ def new_business():
     if not email_addr:
         return jsonify({'error': "Enter the email_address"})
     
-    if not city:
-        return jsonify({'error': "Enter the city"})
-    
-    if len(city) < 5 :
-        return jsonify({'error':"City name cannot be less than 5 characters!"})
-    
     if not phone:
         return jsonify({'error': "Phone is required"})
     
@@ -75,6 +69,7 @@ def new_business():
 
 #reading
 @all_businesses.route('/business/<int:id>', methods = ['GET'])
+@jwt_required()
 def get_business(id):
     business = Business.query.get_or_404(id)
 
@@ -85,7 +80,6 @@ def get_business(id):
             "phone":business.phone,
             "description":business.description,
             "logo":business.logo,
-            "city":business.city,
             "locations_id":business.locations_id,
             "users_id":business.users_id
         } 
@@ -95,6 +89,7 @@ def get_business(id):
 
 #updating
 @all_businesses.route('/update/<int:id>', methods = ['PATCH'])
+@jwt_required()
 def update_business(id):
      business = Business.query.get_or_404(id)
      business.bus_name = request.json['bus_name']
@@ -106,7 +101,7 @@ def update_business(id):
 
 #deleting
 @all_businesses.route('/delete/<int:id>',methods = ['DELETE'])
-
+@jwt_required()
 def delete_business(id):
      business = Business.query.get_or_404(id)
      db.session.delete(business)

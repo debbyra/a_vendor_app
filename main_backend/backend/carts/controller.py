@@ -10,6 +10,7 @@ all_carts = Blueprint('carts', __name__,url_prefix='/carts')
 #create the carts endpoints
 # get all
 @all_carts.route('/', methods =['GET'])
+@jwt_required()
 def carts():
     
      carts= Cart.query.all()
@@ -30,6 +31,7 @@ def carts():
 
 # create new
 @all_carts.route('/create', methods =['POST','GET'])
+@jwt_required()
 def new_cart():
     
     quantity = request.json['quantity']
@@ -83,9 +85,10 @@ def get_cart(id):
 
 #updating
 @all_carts.route('/update/<int:id>', methods = ['PATCH'])
+@jwt_required()
 def update_cart(id):
-     cart = cart.query.get_or_404(id)
-     cart.quantity = request['quantity']
+     cart = Cart.query.get_or_404(id)
+     cart.quantity = request.json['quantity']
      cart.price = request.json['price']
      cart.TT_price = request.json['TT_price']
      cart.promotion = request.json['promotion']
@@ -98,8 +101,9 @@ def update_cart(id):
 
 #deleting
 @all_carts.route('/delete/<int:id>',methods = ['DELETE'])
+@jwt_required()
 def delete_cart(id):
-     cart = cart.query.get_or_404(id)
+     cart = Cart.query.get_or_404(id)
      db.session.delete(cart)
      db.session.commit()
      return jsonify({'message':f'{cart.id} successfully deleted'})

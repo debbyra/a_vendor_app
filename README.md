@@ -1,7 +1,7 @@
 # SmallBizSafari Vendor Business App
 ## CURRENT PROGRESS
 ## Backend
-- Endpoints are ready but not protected : add (@jwt_required)
+- Endpoints are all protected and ready to test
 
 ## Frontend
 - Added user components; only left with user reviews and geolocation components.

@@ -10,6 +10,7 @@ all_categories = Blueprint('categories', __name__,url_prefix='/categories')
 #create the categories endpoints
 # get all
 @all_categories.route('/', methods =['GET'])
+@jwt_required()
 def categories():
     
      categories= Category.query.all()
@@ -27,6 +28,7 @@ def categories():
 
 # create new
 @all_categories.route('/create', methods =['POST','GET'])
+@jwt_required()
 def new_category():
     
     name = request.json['name']
@@ -74,10 +76,10 @@ def get_category(id):
 
 #updating
 @all_categories.route('/update/<int:id>', methods = ['PATCH'])
+@jwt_required()
 def update_category(id):
-     category = category.query.get_or_404(id)
+     category = Category.query.get_or_404(id)
      category.name = request.json['name']
-     category.image = request.json['image']
      category.description = request.json['description']
 
      db.session.add(category)
@@ -86,6 +88,7 @@ def update_category(id):
 
 #deleting
 @all_categories.route('/delete/<int:id>',methods = ['DELETE'])
+@jwt_required()
 def delete_category(id):
      category = Category.query.get_or_404(id)
      db.session.delete(category)

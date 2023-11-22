@@ -10,6 +10,7 @@ all_orders = Blueprint('orders', __name__,url_prefix='/orders')
 #create the orders endpoints
 # get all
 @all_orders.route('/', methods =['GET'])
+@jwt_required()
 def orders():
     
      orders= Order.query.all()
@@ -27,6 +28,7 @@ def orders():
 
 # create new
 @all_orders.route('/create', methods =['POST','GET'])
+@jwt_required()
 def new_order():
     
     name = request.json['name']
@@ -54,6 +56,7 @@ def new_order():
 
 #reading
 @all_orders.route('/order/<int:id>', methods = ['GET'])
+@jwt_required()
 def get_order(id):
     order = Order.query.get_or_404(id)
 
@@ -67,12 +70,13 @@ def get_order(id):
             "users_id":order.users_id,
             "carts_id":order.carts_id
         } 
-    db.session.add(response)
+    db.session.add(order)
     db.session.commit()
     return jsonify({'message':'successful '})
 
 #updating
 @all_orders.route('/update/<int:id>', methods = ['PATCH'])
+@jwt_required()
 def update_order(id):
      order = Order.query.get_or_404(id)
      order.name = request.json['name']

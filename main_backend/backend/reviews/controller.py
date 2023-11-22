@@ -10,6 +10,7 @@ all_reviews = Blueprint('reviews', __name__,url_prefix='/reviews')
 #create the reviews endpoints
 # get all
 @all_reviews.route('/', methods =['GET'])
+@jwt_required()
 def reviews():
     
      reviews= Review.query.all()
@@ -19,13 +20,14 @@ def reviews():
                 "review":review.review,
                 "created_at": review.created_at.strftime('%Y-%m-%d %H:%M:%S'),
                 "users_id":review.users_id,
-                "orders_id":results.orders_id
+                "orders_id":review.orders_id
             }for review in reviews]
         
      return {"count":len(reviews), "reviews":results} 
 
 # create new
 @all_reviews.route('/create', methods =['POST','GET'])
+@jwt_required()
 def new_review():
     
     review = request.json['review']
@@ -49,6 +51,7 @@ def new_review():
 
 #reading
 @all_reviews.route('/review/<int:id>', methods = ['GET'])
+@jwt_required()
 def get_review(id):
     review = Review.query.get_or_404(id)
 
@@ -65,6 +68,7 @@ def get_review(id):
 
 #updating
 @all_reviews.route('/update/<int:id>', methods = ['PATCH'])
+@jwt_required()
 def update_review(id):
      review = Review.query.get_or_404(id)
      review = request.json['review']
@@ -76,8 +80,9 @@ def update_review(id):
 
 #deleting
 @all_reviews.route('/delete/<int:id>',methods = ['DELETE'])
+@jwt_required()
 def delete_review(id):
      review = Review.query.get_or_404(id)
      db.session.delete(review)
      db.session.commit()
-     return jsonify({'message':f'{review.name} successfully deleted'})
+     return jsonify({'message':f'{review.review} successfully deleted'})

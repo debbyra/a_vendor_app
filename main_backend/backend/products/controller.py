@@ -10,6 +10,7 @@ all_products = Blueprint('products', __name__,url_prefix='/products')
 #create the products endpoints
 # get all
 @all_products.route('/', methods =['GET'])
+@jwt_required()
 def products():
     
      products= Product.query.all()
@@ -28,6 +29,7 @@ def products():
 
 # create new
 @all_products.route('/create', methods =['POST','GET'])
+@jwt_required()
 def new_product():
     
     name = request.json['name']
@@ -76,6 +78,7 @@ def get_product(id):
 
 #updating
 @all_products.route('/update/<int:id>', methods = ['PATCH'])
+@jwt_required()
 def update_review(id):
      product = Product.query.get_or_404(id)
      product.name = request.json['name']
@@ -87,6 +90,7 @@ def update_review(id):
 
 #deleting
 @all_products.route('/delete/<int:id>',methods = ['DELETE'])
+@jwt_required()
 def delete_product(id):
      product = Product.query.get_or_404(id)
      db.session.delete(product)

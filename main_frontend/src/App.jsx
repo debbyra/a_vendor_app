@@ -6,6 +6,7 @@ import AccountPage from "./pages/AccountPage";
 import HealthAndBeauty from "./pages/HealthAndBeautyPage";
 import TopInHealthAndBeauty from "./pages/TopInHealthAndBeauty";
 import CartPage from "./pages/CartPage";
+import Dashboard from "./pages/AdminDashboard";
 import "./App.css";
 
 const IndexLandingPage = () => (
@@ -19,6 +20,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" index element={<IndexLandingPage />} />
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/dashboard" element={<UserDashboard />} />
         <Route
           path="/dashboard/biz_profile"
@@ -33,6 +35,7 @@ function App() {
           path="/dashboard/top-in-health-and-beauty"
           element={<TopInHealthAndBeauty />}
         />
+        
         <Route path="/dashboard/cart-page" element={<CartPage />} />
       </Routes>
     </BrowserRouter>

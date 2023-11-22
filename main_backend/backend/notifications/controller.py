@@ -10,6 +10,7 @@ all_notifications = Blueprint('notifications', __name__,url_prefix='/notificatio
 #create the notifications endpoints
 # get all
 @all_notifications.route('/', methods =['GET'])
+@jwt_required()
 def notifications():
     
      notifications= Notification.query.all()
@@ -45,6 +46,7 @@ def new_notification():
 
 #reading
 @all_notifications.route('/notification/<int:id>', methods = ['GET'])
+@jwt_required()
 def get_notification(id):
     notification = Notification.query.get_or_404(id)
 
@@ -59,6 +61,7 @@ def get_notification(id):
 
 #updating
 @all_notifications.route('/update/<int:id>', methods = ['PATCH'])
+@jwt_required()
 def update_order(id):
      notification = Notification.query.get_or_404(id)
      notification.description = request.json['description']
@@ -70,6 +73,7 @@ def update_order(id):
 
 #deleting
 @all_notifications.route('/delete/<int:id>',methods = ['DELETE'])
+@jwt_required()
 def delete_notification(id):
      notification = Notification.query.get_or_404(id)
      db.session.delete(notification)
