@@ -11,9 +11,9 @@ const TopBizSection = (props) => {
 
   return (
     <div className="top-biz-section">
-      <h3>
+      <h2>
         <span>{props.title}</span>
-      </h3>
+      </h2>
       <div className="business-section">
         <Link to="/dashboard/biz_profile">
           <TopBizCard image={"/video/thumbnail.jpg"} name="Dummy business" />

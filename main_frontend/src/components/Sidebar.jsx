@@ -38,7 +38,7 @@ const Sidebar = (props) => {
               <h3>
                 <span>Categories</span>
               </h3>
-              <button className="sell-button">SELL</button>
+              {/* <button className="sell-button">SELL</button> */}
             </div>
             <div className="health-and-beauty" onClick={onHealthAndBeautyClick}>
               <CategoriesCard

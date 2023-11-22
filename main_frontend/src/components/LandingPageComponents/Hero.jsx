@@ -9,7 +9,7 @@ const Hero = () => {
       <div className="hero-information">
         <div className="hero-main-heading">
           <h1>
-            Discover Local Treasures - <span>SmallBizSafari</span>
+            <span>Discover Local Treasures</span>
           </h1>
         </div>
         <div className="hero-description">
@@ -36,7 +36,7 @@ const Hero = () => {
               type="text"
               name="product-name"
               id="product-name"
-              placeholder="SmallBizSafari"
+              placeholder="Search SmallBizSafari"
             />
             <input type="submit" value="search" />
           </form>

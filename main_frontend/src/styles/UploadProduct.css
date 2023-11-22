@@ -1,0 +1,33 @@
+.upload-product h1 {
+    text-align: center;
+}
+
+#product-upload-form {
+    width: 100%;
+    height: auto;
+}
+
+#product-upload-form-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#product-upload-form-div > div {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#product-upload-form-div input, #product-upload-form textarea {
+    width: 25%;
+}
+
+#product-upload-form textarea {
+    margin-top: .75rem;
+}
+
+#product-upload-form input[type="submit"] {
+    width: 20%;
+}

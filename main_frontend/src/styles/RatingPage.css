@@ -1,0 +1,36 @@
+.rating-page h1 {
+    text-align: center;
+}
+
+.rating-component {
+    border: 1px solid;
+    padding: 1rem 3rem 0 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.rating-component > div {
+    width: 50%;
+    padding: .75rem;
+}
+
+.rating-component form {
+    width: 100%;
+} 
+
+.rating-component form > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.rating-component button {
+    margin: .5rem;
+}
+
+.rating-component img {
+    width: 5rem;
+}

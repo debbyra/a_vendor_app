@@ -1,9 +1,9 @@
 import { useState } from "react";
-import Sidebar from "./Sidebar"; // Import the Sidebar component
+import Sidebar from "../Sidebar"; // Import the Sidebar component
 import { useNavigate } from "react-router-dom";
-import "../styles/SecNav.css";
+import "../../styles/SecNav.css";
 
-const SecNav = () => {
+const VendorSecNav = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false); // Initialize sidebarOpen state
 
   const navigate = useNavigate();
@@ -22,7 +22,7 @@ const SecNav = () => {
       <button className="menu-button" onClick={toggleSidebar}>
         <img src="/icons/menu.png" alt="" />
       </button>
-      {/* <button className="sell-button">SELL</button> */}
+      <button className="sell-button">SELL</button>
 
       <div className="cart-info" title="cart" onClick={onCartClick}>
         <img src="/icons/cart.png" alt="" />
@@ -35,4 +35,4 @@ const SecNav = () => {
   );
 };
 
-export default SecNav;
+export default VendorSecNav;
