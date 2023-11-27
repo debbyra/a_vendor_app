@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from 'react';
 import Sidebar from "../Sidebar"; // Import the Sidebar component
 import { useNavigate } from "react-router-dom";
 import "../../styles/SecNav.css";

@@ -9,15 +9,19 @@ const Sidebar = (props) => {
 
   const onHealthAndBeautyClick = () => {
     navigate("/dashboard/health-and-beauty");
-  }
- 
+  };
+
   const onAccountClick = () => {
     navigate("/dashboard/account");
-  }
+  };
 
   const closeSidebar = () => {
     console.log("Closing sidebar"); // Debugging
     props.toggleSidebar(); // Use toggleSidebar to close the sidebar
+  };
+
+  const onServicesClick = () => {
+    navigate("/dashboard/services");
   };
 
   return (
@@ -46,7 +50,10 @@ const Sidebar = (props) => {
                 name={"Health and Beauty"}
               />
             </div>
-            <CategoriesCard src={`/icons/services.png`} name={"Services"} />
+            <div className="services" onClick={onServicesClick}>
+              <CategoriesCard src={`/icons/services.png`} name={"Services"} />
+            </div>
+
             <CategoriesCard src={`/icons/furniture.png`} name={"Furniture"} />
             <CategoriesCard
               src={`/icons/electronics.png`}
