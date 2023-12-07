@@ -20,8 +20,7 @@ def users():
                "password":user.password,
                "email":user.email,
                "contact":user.contact,
-               "created_at": user.created_at.strftime('%Y-%m-%d %H:%M:%S'),
-               "locations_id":user.locations_id
+               "created_at": user.created_at.strftime('%Y-%m-%d %H:%M:%S')
             }for user in users]
         
      return {"count":len(users), "users":results} 
@@ -63,7 +62,7 @@ def new_user():
     #storing the new reviews data
      #creating a hashed password for the database
     hashed_password = generate_password_hash(password)
-    new_user = User(name=name, password=hashed_password, email=email, contact=contact,locations_id=locations_id)
+    new_user = User(name=name, password=hashed_password, email=email, contact=contact)
 
     #add the new review
     db.session.add(new_user)

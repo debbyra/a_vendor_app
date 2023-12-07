@@ -4,6 +4,10 @@ from datetime import datetime
 
 class Business(db.Model):
    __tablename__ = "businesses"
+
+   from backend.categories.model import Category
+   from backend.products.model import Product
+
    id = db.Column(db.Integer, primary_key = True)
    bus_name = db.Column(db.String(100), unique = True)
    email_addr = db.Column(db.String(100), unique = True)

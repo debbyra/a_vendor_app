@@ -10,7 +10,7 @@ const DashNav = () => {
 
   return (
     <div className="nav">
-      <h2 onClick={onHeadingClick}>SmallBizSafari</h2>
+      <h2 onClick={onHeadingClick}>Welcome to your SmallBizSafari DashBoard</h2>
       <div className="nav-buttons">
         <a href="/">
           <button className="logout">Logout</button>

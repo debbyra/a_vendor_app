@@ -1,18 +1,19 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from config import config
-from backend.db import db
-# from flask_cors import CORS
+from backend.db import db, ma
+from flask_cors import CORS
 
-def create_app(config_name): #Application Factory Funciton
+def create_app(config_name): #Application Factory Function
     app = Flask(__name__)
     app.config.from_object(config[config_name])
     config[config_name].init_app(app)
     app.config.from_pyfile("../config.py")
 
-    # CORS(app=app, resources={r"/*": {"origins": "*"}})
+    CORS(app=app, resources={r"/*": {"origins": "*"}})
 
     db.init_app(app)
+    ma.init_app(app)
 
 
     #import the blueprints

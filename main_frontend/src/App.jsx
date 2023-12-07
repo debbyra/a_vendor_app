@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 import UserDashboard from "./pages/UserDashboard";
+import Dashboard from './pages/AdminDashboard';
 import BusinessProfilePage from "./pages/BusinessProfilePage";
 import AccountPage from "./pages/AccountPage";
 import HealthAndBeauty from "./pages/HealthAndBeautyPage";
@@ -31,6 +32,7 @@ function App() {
       <Routes>
         <Route path="/" index element={<IndexLandingPage />} />
         <Route path="/dashboard" element={<UserDashboard />} />
+        {/* <Route path="/dashboard" element={<Dashboard />} /> */}
         <Route
           path="/dashboard/biz_profile"
           element={<BusinessProfilePage />}

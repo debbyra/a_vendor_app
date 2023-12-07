@@ -1,23 +1,23 @@
 import React from 'react';
-import PropTypes from "prop-types";
-import CategoriesCard from "../components/LandingPageComponents/CategoriesCard";
-import "../styles/Sidebar.css";
-import { useNavigate } from "react-router-dom";
+import PropTypes from 'prop-types';
+import CategoriesCard from '../components/LandingPageComponents/CategoriesCard';
+import '../styles/Sidebar.css';
+import { useNavigate } from 'react-router-dom';
 
 const Sidebar = (props) => {
   const navigate = useNavigate();
 
-  const onHealthAndBeautyClick = () => {
-    navigate("/dashboard/health-and-beauty");
-  }
- 
+  const closeSidebar = () => {
+    console.log('Closing sidebar');
+    props.toggleSidebar();
+  };
+
+  const navigateTo = (path) => {
+    navigate(`/dashboard/${path}`);
+  };
+
   const onAccountClick = () => {
     navigate("/dashboard/account");
-  }
-
-  const closeSidebar = () => {
-    console.log("Closing sidebar"); // Debugging
-    props.toggleSidebar(); // Use toggleSidebar to close the sidebar
   };
 
   return (
@@ -30,34 +30,28 @@ const Sidebar = (props) => {
           onClick={closeSidebar}
         />
         <div className="top-info">
-          <p>Welcome!</p>
+          <p>Welcome, Admin!</p>
         </div>
         <div className="sidebar-content">
           <div className="categories">
             <div className="categories-top">
               <h3>
-                <span>Categories</span>
+                <span>Tables</span>
               </h3>
-              <button className="sell-button">SELL</button>
             </div>
-            <div className="health-and-beauty" onClick={onHealthAndBeautyClick}>
-              <CategoriesCard
-                src={`/icons/health.png`}
-                name={"Health and Beauty"}
-              />
+            <div onClick={() => navigateTo('orders')}>
+              <CategoriesCard src="/icons/retail.png" name="Orders" />
             </div>
-            <CategoriesCard src={`/icons/services.png`} name={"Services"} />
-            <CategoriesCard src={`/icons/furniture.png`} name={"Furniture"} />
-            <CategoriesCard
-              src={`/icons/electronics.png`}
-              name={"Electronics"}
-            />
-            <CategoriesCard src={`/icons/fashion.png`} name={"Fashion"} />
-            <CategoriesCard
-              src={`/icons/appliances.png`}
-              name={"Home Appliances"}
-            />
-            <CategoriesCard src={`/icons/retail.png`} name={"Retail"} />
+            <div onClick={() => navigateTo('users')}>
+              <CategoriesCard src="/icons/fashion.png" name="Users" />
+            </div>
+            <div onClick={() => navigateTo('analytics')}>
+              <CategoriesCard src="/icons/services.png" name="Analytics" />
+            </div>
+            <div onClick={() => navigateTo('reviews')}>
+              <CategoriesCard src="/icons/furniture.png" name="Reviews" />
+            </div>
+            {/* Add more sections as needed */}
           </div>
           <div className="settings">
             <h3>
@@ -75,9 +69,7 @@ const Sidebar = (props) => {
 };
 
 Sidebar.propTypes = {
-  // isOpen: PropTypes.bool.isRequired,
   toggleSidebar: PropTypes.func.isRequired,
-  action: PropTypes.string, // Add PropTypes for other props as needed
 };
 
 export default Sidebar;

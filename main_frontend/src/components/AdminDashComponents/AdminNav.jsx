@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Sidebar from "../Sidebar"; // Import the Sidebar component
+import Sidebar from "../AdminSidebar"; // Import the Sidebar component
 import { useNavigate } from "react-router-dom";
 import "../../styles/SecNav.css";
 
@@ -18,7 +18,6 @@ const AdminNav = () => {
       <button className="menu-button" onClick={toggleSidebar}>
         <img src="/icons/menu.png" alt="" />
       </button>
-      {/* <button className="sell-button">SELL</button> */}
 
       
 

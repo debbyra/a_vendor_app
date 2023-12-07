@@ -1,4 +1,4 @@
-from backend.users.model import User
+from backend.users.model import User , UserSchema
 from backend.db import db
 from werkzeug.security import check_password_hash,generate_password_hash
 from flask_jwt_extended import create_access_token #to make JSON Web Tokens
@@ -32,7 +32,7 @@ def create_user():
       email = data['email']
       contact = data['contact']
       password = data['password']
-      locations_id = data['locations_id']
+      # locations_id = data['locations_id']
       
   
       #validating the attributes so as to secure the services rendered by the application
@@ -58,19 +58,21 @@ def create_user():
 
       #creating a hashed password for more security of the database
       hashed_password = generate_password_hash(password=data['password'])
-      new_user = User(name=name,email=email,contact=contact,password=hashed_password,locations_id=locations_id) 
+      new_user = User(name=name,email=email,contact=contact,password=hashed_password) 
       
       #inserting values
       db.session.add(new_user)
       db.session.commit()
-      return jsonify({'message':'Sucessfully registered new user','data':new_user}),201
+      return jsonify({'message':'Sucessfully registered new user','data':UserSchema().dump(new_user)}),201
 
 #if the method is GET.
     elif request.method == "GET":
         users= User.query.all()
+        user_schema = UserSchema(many=True)
+        output = user_schema.dump(users)
         return jsonify({
             "success":True,
-            "data":users,
+            "data":output,
             "total":len(users)  #return the total of the users of the application
         })
     

@@ -26,7 +26,7 @@ export const SignUpForm = (props) => {
       email: email,
       contact: contact,
       password: password,
-      locations_id: location_id
+      // locations_id: location_id
     };
 
     if (password !== confirmPassword) {
@@ -123,14 +123,9 @@ export const SignUpForm = (props) => {
           onChange={handleConfirmPasswordChange}
         ></input>
 
-        <input
-          type="text"
-          placeholder="Enter your location"
-          name="location"
-          required
-          value={location_id}
-          onChange={(e) => setLocationId(e.target.value)}
-        ></input>
+        
+  
+        
 
         {/* Submit form details */}
         <button type="submit" className="btn">
