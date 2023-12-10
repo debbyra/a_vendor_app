@@ -2,7 +2,6 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 import UserDashboard from "./pages/UserDashboard";
-import Dashboard from './pages/AdminDashboard';
 import BusinessProfilePage from "./pages/BusinessProfilePage";
 import AccountPage from "./pages/AccountPage";
 import HealthAndBeauty from "./pages/HealthAndBeautyPage";
@@ -18,6 +17,7 @@ import VendorDash from "./pages/vendor_pages/VendorDash";
 import VendorProfilePage from "./pages/vendor_pages/VendorProfilePage";
 import VendorSingleProductPage from "./pages/vendor_pages/VendorSingleProductPage";
 import VendorUploadProductPage from "./pages/vendor_pages/VendorUploadProductPage";
+import Dash from './dashboard/dashboardapp';
 import "./App.css";
 
 const IndexLandingPage = () => (
@@ -31,8 +31,8 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" index element={<IndexLandingPage />} />
-        <Route path="/dashboard" element={<UserDashboard />} />
-        {/* <Route path="/dashboard" element={<Dashboard />} /> */}
+        {/* <Route path="/dashboard" element={<UserDashboard />} /> */}
+        <Route path="/dashboard" element={<Dash />} />
         <Route
           path="/dashboard/biz_profile"
           element={<BusinessProfilePage />}
