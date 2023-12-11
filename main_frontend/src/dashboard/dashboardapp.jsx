@@ -20,19 +20,19 @@ function Dash() {
         <CssBaseline />
         <div className="combine">
           <div className="app">
-            <img
+            {/* <img
               src="/icons/close.png"
               className="close-icon"
               alt=""
               onClick={closeSidebar}
-            />
-            <Sidebar isSidebar={isSidebar} />
+            /> */}
+            {/* <Sidebar isSidebar={isSidebar} /> */}
             <main className="content">
               <Topbar setIsSidebar={setIsSidebar} />
               <Dashboard />
             </main>
           </div>
-          <div className="overlay active" onClick={closeSidebar}></div>
+          {/* <div className="overlay active" onClick={closeSidebar}></div> */}
         </div>
       </ThemeProvider>
     </ColorModeContext.Provider>
