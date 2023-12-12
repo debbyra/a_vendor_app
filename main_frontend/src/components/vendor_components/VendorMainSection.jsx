@@ -38,7 +38,7 @@ const VendorMainSection = () => {
           <div className="main-content-div">
             <div className="products-heading">
               <h3>Our Products</h3>
-              <a href="/vendor_dashboard/upload_product">
+              <a href="/dashboard/vendor/upload_product">
                 <button>Add New Product</button>
               </a>
             </div>

@@ -1,12 +1,13 @@
 import { useState } from "react";
 import Sidebar from "../Sidebar"; // Import the Sidebar component
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "../../styles/SecNav.css";
 
 const VendorSecNav = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false); // Initialize sidebarOpen state
 
   const navigate = useNavigate();
+  const { id } = useParams();
 
   // Function to toggle the sidebar
   const toggleSidebar = () => {
@@ -16,6 +17,10 @@ const VendorSecNav = () => {
   const onCartClick = () => {
     navigate("/dashboard/cart-page");
   };
+
+  const onProfileClick = () => {
+    navigate(`/dashboard/vendor/profile/${id}`);
+  }
 
   return (
     <div className="sec-nav">
@@ -27,6 +32,11 @@ const VendorSecNav = () => {
       <div className="cart-info" title="cart" onClick={onCartClick}>
         <img src="/icons/cart.png" alt="" />
         <p>0</p>
+      </div>
+
+      {/* Add a profile icon next to the cart icon */}
+      <div className="profile-info" title="profile">
+        <img src="/images/profile-user.png" alt="" width={40} onClick={onProfileClick} />
       </div>
 
       {/* Conditionally render the Sidebar component based on sidebarOpen state */}

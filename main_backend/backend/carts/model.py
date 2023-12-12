@@ -5,6 +5,9 @@ from datetime import datetime
 
 class Cart(db.Model):
    __tablename__ = "carts"
+
+   from backend.orders.model import Order
+
    id = db.Column(db.Integer, primary_key = True)
    quantity = db.Column(db.String(100),unique = False)
    price = db.Column(db.Integer,unique = True)

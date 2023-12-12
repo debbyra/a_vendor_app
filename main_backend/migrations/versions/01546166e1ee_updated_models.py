@@ -1,8 +1,8 @@
-"""description_of_changes
+"""updated models
 
-Revision ID: 109bcdbf5d6c
+Revision ID: 01546166e1ee
 Revises: 
-Create Date: 2023-10-13 15:35:31.039372
+Create Date: 2023-12-12 09:53:42.425612
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '109bcdbf5d6c'
+revision = '01546166e1ee'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -28,6 +28,14 @@ def upgrade():
     sa.UniqueConstraint('event_type'),
     sa.UniqueConstraint('time_stamp')
     )
+    op.create_table('business_categories',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('name', sa.String(length=100), nullable=False),
+    sa.Column('icon', sa.String(length=255), nullable=True),
+    sa.Column('created_at', sa.DateTime(), nullable=False),
+    sa.PrimaryKeyConstraint('id'),
+    sa.UniqueConstraint('name')
+    )
     op.create_table('carts',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('quantity', sa.String(length=100), nullable=True),
@@ -44,16 +52,6 @@ def upgrade():
     sa.UniqueConstraint('promotion'),
     sa.UniqueConstraint('status')
     )
-    op.create_table('locations',
-    sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('lo_name', sa.String(length=100), nullable=True),
-    sa.Column('strt_address', sa.String(length=100), nullable=True),
-    sa.Column('phone', sa.String(length=15), nullable=True),
-    sa.Column('city', sa.String(length=100), nullable=True),
-    sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('phone'),
-    sa.UniqueConstraint('strt_address')
-    )
     op.create_table('settings',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=100), nullable=True),
@@ -61,6 +59,53 @@ def upgrade():
     sa.Column('role_user', sa.String(length=35), nullable=False),
     sa.Column('description', sa.String(length=35), nullable=False),
     sa.Column('created_at', sa.DateTime(), nullable=False),
+    sa.PrimaryKeyConstraint('id')
+    )
+    op.create_table('users',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('first_name', sa.String(length=255), nullable=True),
+    sa.Column('last_name', sa.String(length=255), nullable=True),
+    sa.Column('password', sa.String(length=255), nullable=True),
+    sa.Column('email', sa.String(length=255), nullable=True),
+    sa.Column('contact', sa.Integer(), nullable=True),
+    sa.Column('user_type', sa.String(length=50), nullable=False),
+    sa.Column('profile_image_url', sa.String(length=255), nullable=True),
+    sa.Column('created_at', sa.DateTime(), nullable=False),
+    sa.PrimaryKeyConstraint('id'),
+    sa.UniqueConstraint('contact'),
+    sa.UniqueConstraint('email'),
+    sa.UniqueConstraint('password')
+    )
+    op.create_table('locations',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('lo_name', sa.String(length=100), nullable=True),
+    sa.Column('strt_address', sa.String(length=100), nullable=True),
+    sa.Column('phone', sa.String(length=15), nullable=True),
+    sa.Column('city', sa.String(length=100), nullable=True),
+    sa.Column('user_id', sa.Integer(), nullable=True),
+    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
+    sa.PrimaryKeyConstraint('id'),
+    sa.UniqueConstraint('phone'),
+    sa.UniqueConstraint('strt_address')
+    )
+    op.create_table('notification',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('description', sa.String(length=100), nullable=True),
+    sa.Column('user_id', sa.Integer(), nullable=True),
+    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
+    sa.PrimaryKeyConstraint('id')
+    )
+    op.create_table('orders',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('name', sa.String(length=100), nullable=True),
+    sa.Column('quantity', sa.String(length=20), nullable=True),
+    sa.Column('status', sa.String(length=35), nullable=False),
+    sa.Column('order_date', sa.String(length=35), nullable=True),
+    sa.Column('user_id', sa.Integer(), nullable=True),
+    sa.Column('carts_id', sa.Integer(), nullable=True),
+    sa.Column('created_at', sa.DateTime(), nullable=False),
+    sa.ForeignKeyConstraint(['carts_id'], ['carts.id'], ),
+    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('businesses',
@@ -71,29 +116,28 @@ def upgrade():
     sa.Column('logo', sa.String(length=100), nullable=True),
     sa.Column('description', sa.String(length=255), nullable=True),
     sa.Column('employees', sa.String(length=255), nullable=True),
-    sa.Column('users_id', sa.String(length=200), nullable=True),
+    sa.Column('user_id', sa.Integer(), nullable=True),
+    sa.Column('business_category_id', sa.Integer(), nullable=True),
     sa.Column('created_at', sa.DateTime(), nullable=False),
     sa.Column('locations_id', sa.Integer(), nullable=True),
+    sa.ForeignKeyConstraint(['business_category_id'], ['business_categories.id'], ),
     sa.ForeignKeyConstraint(['locations_id'], ['locations.id'], ),
+    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('bus_name'),
     sa.UniqueConstraint('email_addr'),
     sa.UniqueConstraint('logo'),
     sa.UniqueConstraint('phone')
     )
-    op.create_table('users',
+    op.create_table('reviews',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('name', sa.String(length=100), nullable=True),
-    sa.Column('email', sa.String(length=30), nullable=True),
-    sa.Column('password', sa.String(length=10), nullable=True),
-    sa.Column('contact', sa.Integer(), nullable=True),
-    sa.Column('locations_id', sa.Integer(), nullable=True),
+    sa.Column('review', sa.String(length=255), nullable=True),
+    sa.Column('user_id', sa.Integer(), nullable=True),
+    sa.Column('orders_id', sa.Integer(), nullable=True),
     sa.Column('created_at', sa.DateTime(), nullable=False),
-    sa.ForeignKeyConstraint(['locations_id'], ['locations.id'], ),
-    sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('contact'),
-    sa.UniqueConstraint('email'),
-    sa.UniqueConstraint('password')
+    sa.ForeignKeyConstraint(['orders_id'], ['orders.id'], ),
+    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
+    sa.PrimaryKeyConstraint('id')
     )
     op.create_table('categories',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -112,47 +156,16 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=100), nullable=True),
     sa.Column('price', sa.String(length=10), nullable=True),
-    sa.Column('origin', sa.String(length=30), nullable=True),
-    sa.Column('image', sa.String(length=255), nullable=True),
-    sa.Column('users_id', sa.Integer(), nullable=True),
+    sa.Column('quantity', sa.Integer(), nullable=False),
+    sa.Column('image_url', sa.String(length=255), nullable=True),
+    sa.Column('video_url', sa.String(length=255), nullable=True),
+    sa.Column('user_id', sa.Integer(), nullable=True),
     sa.Column('businesses_id', sa.Integer(), nullable=True),
+    sa.Column('business_category_id', sa.Integer(), nullable=True),
     sa.Column('created_at', sa.DateTime(), nullable=False),
+    sa.ForeignKeyConstraint(['business_category_id'], ['business_categories.id'], ),
     sa.ForeignKeyConstraint(['businesses_id'], ['businesses.id'], ),
-    sa.ForeignKeyConstraint(['users_id'], ['users.id'], ),
-    sa.PrimaryKeyConstraint('id')
-    )
-    op.create_table('orders',
-    sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('name', sa.String(length=100), nullable=True),
-    sa.Column('quantity', sa.String(length=20), nullable=True),
-    sa.Column('status', sa.String(length=35), nullable=False),
-    sa.Column('order_date', sa.String(length=35), nullable=False),
-    sa.Column('users_id', sa.Integer(), nullable=True),
-    sa.Column('products_id', sa.Integer(), nullable=True),
-    sa.Column('carts_id', sa.Integer(), nullable=True),
-    sa.Column('created_at', sa.DateTime(), nullable=False),
-    sa.ForeignKeyConstraint(['carts_id'], ['carts.id'], ),
-    sa.ForeignKeyConstraint(['products_id'], ['products.id'], ),
-    sa.ForeignKeyConstraint(['users_id'], ['users.id'], ),
-    sa.PrimaryKeyConstraint('id')
-    )
-    op.create_table('notification',
-    sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('description', sa.String(length=100), nullable=True),
-    sa.Column('orders_id', sa.Integer(), nullable=True),
-    sa.Column('users_id', sa.Integer(), nullable=True),
-    sa.ForeignKeyConstraint(['orders_id'], ['orders.id'], ),
-    sa.ForeignKeyConstraint(['users_id'], ['users.id'], ),
-    sa.PrimaryKeyConstraint('id')
-    )
-    op.create_table('reviews',
-    sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('review', sa.String(length=255), nullable=True),
-    sa.Column('users_id', sa.Integer(), nullable=True),
-    sa.Column('orders_id', sa.Integer(), nullable=True),
-    sa.Column('created_at', sa.DateTime(), nullable=False),
-    sa.ForeignKeyConstraint(['orders_id'], ['orders.id'], ),
-    sa.ForeignKeyConstraint(['users_id'], ['users.id'], ),
+    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     # ### end Alembic commands ###
@@ -160,15 +173,16 @@ def upgrade():
 
 def downgrade():
     # ### commands auto generated by Alembic - please adjust! ###
-    op.drop_table('reviews')
-    op.drop_table('notification')
-    op.drop_table('orders')
     op.drop_table('products')
     op.drop_table('categories')
-    op.drop_table('users')
+    op.drop_table('reviews')
     op.drop_table('businesses')
-    op.drop_table('settings')
+    op.drop_table('orders')
+    op.drop_table('notification')
     op.drop_table('locations')
+    op.drop_table('users')
+    op.drop_table('settings')
     op.drop_table('carts')
+    op.drop_table('business_categories')
     op.drop_table('analytics')
     # ### end Alembic commands ###

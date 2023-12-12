@@ -1,4 +1,6 @@
 import { useState } from "react";
+import LoginForm from "../LoginForm";
+import { SellerSignUpForm } from "./SellerSignUpForm";
 
 export const SignUpForm = (props) => {
   const [firstName, setFirstName] = useState("");
@@ -6,9 +8,12 @@ export const SignUpForm = (props) => {
   const [email, setEmail] = useState("");
   const [contact, setContact] = useState("");
   const [password, setPassword] = useState("");
-  const [location_id, setLocationId] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [hasSubmitted, setHasSubmitted] = useState(false);
+  const [data, setData] = useState("");
+
+  const [showLoginForm, setShowLoginForm] = useState(false);
+  const [showSellerSignUpForm, setShowSellerSignUpForm] = useState(false);
 
   const handleConfirmPasswordChange = (e) => {
     setConfirmPassword(e.target.value);
@@ -22,32 +27,26 @@ export const SignUpForm = (props) => {
     e.preventDefault();
 
     let signUpDetails = {
-      name: `${firstName} ${lastName}`,
+      first_name: firstName,
+      last_name: lastName,
       email: email,
       contact: contact,
       password: password,
-      locations_id: location_id
     };
 
     if (password !== confirmPassword) {
-      // Passwords don't match, show an error message
       alert("Passwords do not match");
       return;
     }
 
-    fetch("http://localhost:5000/auth/register", {
+    fetch("http://localhost:5000/auth/register/customer", {
       method: "POST",
       body: JSON.stringify(signUpDetails),
       headers: {
         "Content-Type": "application/json",
       },
     })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return res.json();
-      })
+      .then((res) => res.json())
       .then((data) => {
         // Check if there is a message or error in the response data
         if (data.message) {
@@ -58,15 +57,29 @@ export const SignUpForm = (props) => {
       })
       .catch((err) => console.log(err));
 
-    // Set state to indicate form submission
     setHasSubmitted(!hasSubmitted);
+  };
+
+  const toggleLoginForm = () => {
+    setShowLoginForm(!showLoginForm);
+  };
+
+  const toggleSellerSignUpForm = () => {
+    setShowSellerSignUpForm(!showSellerSignUpForm);
   };
 
   return (
     <>
       <h1>
-        <span>Sign Up</span>
+        <span>Customer Sign Up</span>
       </h1>
+      <a
+        href="#sellersignin"
+        className="signin"
+        onClick={toggleSellerSignUpForm}
+      >
+        Sign Up As A Seller
+      </a>
       {/* Display message if form has been submitted */}
       <form onSubmit={handleFormSubmit}>
         <input
@@ -123,15 +136,6 @@ export const SignUpForm = (props) => {
           onChange={handleConfirmPasswordChange}
         ></input>
 
-        <input
-          type="text"
-          placeholder="Enter your location"
-          name="location"
-          required
-          value={location_id}
-          onChange={(e) => setLocationId(e.target.value)}
-        ></input>
-
         {/* Submit form details */}
         <button type="submit" className="btn">
           Sign Up
@@ -143,8 +147,29 @@ export const SignUpForm = (props) => {
         Close
       </button>
 
+      {/* Display login form popup when showLoginForm is true */}
+      {showLoginForm && (
+        <div className="form-popup">
+          <div className="form-container">
+            <LoginForm closeForm={toggleLoginForm} />
+          </div>
+        </div>
+      )}
+
+      {showSellerSignUpForm && (
+        <div className="form-popup">
+          <div className="form-container">
+            <SellerSignUpForm closeForm={toggleSellerSignUpForm} />
+          </div>
+        </div>
+      )}
+
       <p>
-        Already registered? <a href="#">Log In</a>.
+        Already registered?{" "}
+        <a href="#" onClick={toggleLoginForm}>
+          Log In
+        </a>
+        .
       </p>
     </>
   );

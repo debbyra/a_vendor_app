@@ -17,7 +17,7 @@ def notifications():
             {
                 "id":notification.id,
                 "description":notification.description,
-                "users_id":notification.users_id
+                "user_id":notification.user_id
             }for notification in notifications]
         
      return {"count":len(notifications), "notifications":results} 
@@ -28,14 +28,14 @@ def notifications():
 def new_notification():
     
     description = request.json['description']
-    users_id = request.json['users_id']
+    user_id = request.json['user_id']
 
     #validations
     if not description:
        return jsonify({'error':"description is required"}), 400
 
     #storing the new data
-    new_description = Notification( description=description,users_id=users_id)
+    new_description = Notification( description=description,user_id=user_id)
 
     #add the new data
     db.session.add(new_description)
@@ -51,7 +51,7 @@ def get_notification(id):
     response = {
             "id":notification.id,
             "description":notification.description,
-            "users_id":notification.users_id
+            "user_id":notification.user_id
         } 
     db.session.add(response)
     db.session.commit()
@@ -62,7 +62,7 @@ def get_notification(id):
 def update_order(id):
      notification = Notification.query.get_or_404(id)
      notification.description = request.json['description']
-     notification.users_id = request.json['users_id']
+     notification.user_id = request.json['user_id']
 
      db.session.add(notification)
      db.session.commit()

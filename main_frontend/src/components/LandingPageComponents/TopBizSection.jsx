@@ -1,9 +1,10 @@
 import "../../styles/TopBizSection.css";
 import TopBizCard from "./TopBizCard";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 const TopBizSection = (props) => {
   const navigate = useNavigate();
+  const { id } = useParams();
 
   const onSeeMoreClick = () => {
     navigate(props.url);
@@ -15,7 +16,7 @@ const TopBizSection = (props) => {
         <span>{props.title}</span>
       </h2>
       <div className="business-section">
-        <Link to="/dashboard/biz_profile">
+        <Link to={`/dashboard/vendor/profile/${id}`}>
           <TopBizCard image={"/video/thumbnail.jpg"} name="Dummy business" />
         </Link>
         <TopBizCard image={"/video/thumbnail.jpg"} name="Lorem ipsum" />

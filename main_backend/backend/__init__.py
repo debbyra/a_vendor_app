@@ -28,6 +28,7 @@ def create_app(config_name): #Application Factory Funciton
     from backend.businesses.controller import all_businesses
     from backend.auth.controller import auth
     from backend.analytics.controller import all_analytics
+    from backend.business_categories.controller import business_category_bp
 
 
     # #registering blue prints
@@ -43,6 +44,7 @@ def create_app(config_name): #Application Factory Funciton
     app.register_blueprint(all_categories)
     app.register_blueprint(auth)
     app.register_blueprint(all_settings)
+    app.register_blueprint(business_category_bp)
 
 
     return app

@@ -2,18 +2,42 @@ import React from "react";
 import PropTypes from "prop-types";
 import CategoriesCard from "../components/LandingPageComponents/CategoriesCard";
 import "../styles/Sidebar.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const Sidebar = (props) => {
   const navigate = useNavigate();
+  const { id } = useParams();
 
   const onHealthAndBeautyClick = () => {
     navigate("/dashboard/health-and-beauty");
-  }
+  };
+
+  const getToken = () =>
+    localStorage.getItem("access_token")
+      ? JSON.parse(localStorage.getItem("access_token"))
+      : null;
+
+  const getFirstName = () =>
+    localStorage.getItem("first_name")
+      ? JSON.parse(localStorage.getItem("first_name"))
+      : null;
+
+  const userType = localStorage.getItem("user_type");
 
   const onAccountClick = () => {
-    navigate("/dashboard/account");
-  }
+    const token = getToken();
+    if (token) {
+      if (userType === "customer") {
+        navigate(`/dashboard/account/customer/${id}`);
+      } else if (userType === "vendor") {
+        navigate(`/dashboard/account/${userType}/${id}`);
+      } else if (userType === "admin") {
+        navigate(`/dashboard/account/admin/${id}`);
+      }
+    } else {
+      alert("Please sign in to access your account.");
+    }
+  };
 
   const closeSidebar = () => {
     console.log("Closing sidebar"); // Debugging
@@ -23,14 +47,14 @@ const Sidebar = (props) => {
   return (
     <>
       <div className={`sidebar`}>
-        <img
+        {/* <img
           src="/icons/close.png"
           className="close-icon"
           alt=""
           onClick={closeSidebar}
-        />
+        /> */}
         <div className="top-info">
-          <p>Welcome!</p>
+          <p>Welcome, {getFirstName() || "guest"}!</p>
         </div>
         <div className="sidebar-content">
           <div className="categories">
@@ -63,7 +87,10 @@ const Sidebar = (props) => {
             <h3>
               <span>Settings</span>
             </h3>
-            <a href="" onClick={onAccountClick}>
+            <a
+              href={`/dashboard/account/${userType}/${id}`}
+              onClick={onAccountClick}
+            >
               Your Account
             </a>
           </div>

@@ -1,101 +1,88 @@
-from backend.users.model import User
+from backend.users.model import User, UserSchema
 from backend.db import db
 from werkzeug.security import check_password_hash,generate_password_hash
-from flask_jwt_extended import create_access_token #to make JSON Web Tokens
+from flask_jwt_extended import create_access_token, create_refresh_token
 from flask import Blueprint,request,jsonify 
-
-#importing necessary libraries used in authentication
-#Authentication helps keep unauthorised people from using the application and helps people to access services.
-
-#JSON Web Token is an open standard (RFC 7519) that defines a compact and self-contained way for securely transmitting information between parties as a JSON object.
-#It can be used for an authentication system and can also be used for information exchange.
-
-# A token is a set of one or more characters having a meaning together.
-
-#the blueprint organises a group of related endpoints/views
-# the request object contains all 
-#data sent by the client to the server
-#the jsonify returns a response object in a python dictionary form
-
 
 auth = Blueprint('auth',__name__,url_prefix='/auth') #the auth blueprint
 
-
 #registering a new user
-@auth.route('/register',methods=['GET','POST']) #creating an endpoint for registering a user
-def create_user():
-    data = request.get_json() #data is storing our properties of the user
-    
+@auth.route('/register/<user_type>', methods=['POST'])
+def create_user(user_type):
+    data = request.get_json()
+
     if request.method == "POST":
-          
-      name = data['name']
-      email = data['email']
-      contact = data['contact']
-      password = data['password']
-      locations_id = data['locations_id']
-      
-  
-      #validating the attributes so as to secure the services rendered by the application
-      if not contact:
-              return jsonify({'error':"Please enter your contact"})
-      
-      if not name:
-              return jsonify({'error':"Name is required"})
-      
+        first_name = request.json.get('first_name')
+        last_name = request.json.get('last_name')
+        email = data.get('email')
+        contact = data.get('contact')
+        password = data.get('password')
 
-      if len(password) < 6:
-            return jsonify({'error': "Password is not sufficient"}), 400
+        if not contact:
+            return jsonify({'message': "Please enter your contact"}), 400
 
+        elif not first_name:
+            return jsonify({'message': "First name is required"}), 400
 
+        elif not last_name:
+            return jsonify({'message': "Last name is required"}), 400
 
-      if User.query.filter_by(email=email).first() is not None:
-        return jsonify({'error': "Email is already existing"}), 409 
+        elif len(first_name) < 4:
+            return jsonify({'message': "First name should not be less than four characters"}), 400
 
-    
-      if User.query.filter_by(contact=contact).first() is not None:
-        return jsonify({'error': "Phone number is already existing"}),409
-       
+        elif len(last_name) < 4:
+            return jsonify({'message': "Last name should not be less than four characters"}), 400
 
-      #creating a hashed password for more security of the database
-      hashed_password = generate_password_hash(password=data['password'])
-      new_user = User(name=name,email=email,contact=contact,password=hashed_password,locations_id=locations_id) 
-      
-      #inserting values
-      db.session.add(new_user)
-      db.session.commit()
-      return jsonify({'message':'Sucessfully registered new user','data':new_user}),201
+        elif len(password) < 6:
+            return jsonify({'message': "Password is not sufficient"}), 400
 
-#if the method is GET.
-    elif request.method == "GET":
-        users= User.query.all()
-        return jsonify({
-            "success":True,
-            "data":users,
-            "total":len(users)  #return the total of the users of the application
-        })
+        existing_contact = User.query.filter_by(contact=contact).first()
+        if existing_contact:
+            return jsonify({'message': "Phone number is already in use"}), 409
+        
+        existing_email = User.query.filter_by(email=email).first()
+        if existing_email:
+            return jsonify({'message': "Email is already in use"}), 409
+
+        hashed_password = generate_password_hash(password)
+        new_user = User(first_name=first_name, last_name=last_name, email=email, contact=contact,
+                        password=hashed_password, user_type=user_type)
+
+        db.session.add(new_user)
+        db.session.commit()
+        return jsonify({'message': 'Successfully registered new user', 'data': UserSchema().dump(new_user)}), 201
     
 
 #user login
 @auth.route("/login", methods=["POST"])
 def login():
-    email = request.json.get("email")
+    contact = request.json.get("contact")
     password = request.json.get("password")
-    user = User.query.filter_by(email=email).first()
+    user = User.query.filter_by(contact=contact).first()
 
-    if not email or not password:
-        return jsonify({"message": "Both email and password are required"})
+    if not contact or not password:
+        return jsonify({"message": "Both email and password are required"}), 400
   
     
     if user:
+      check_password = check_password_hash(user.password, password)
       
-      if user.password == password:
+      if check_password:
           access_token = create_access_token(identity=user.id) #to make JSON Web Tokens for authentication
+          refresh = create_refresh_token(identity=user.id)
+
           return jsonify({
-           "message":"Successfully logged in a user",
+          "message":"Successfully logged in a user",
           "access_token":access_token,
-          "user":user}) #to access a token
+          "refresh_token":refresh,
+          "user_type": user.user_type,
+          "for": {
+              "name": f"{user.first_name} {user.last_name}",
+              "id": user.id,
+              "first_name": user.first_name,
+          }}) #to access a token
       else:
-        return jsonify({"message": "Invalid password"})
+        return jsonify({"message": "Invalid password"}), 401
     else:
-        return jsonify({"message": "email address doesn't exist"})  
+        return jsonify({"message": "contact doesn't exist"}), 401  
 

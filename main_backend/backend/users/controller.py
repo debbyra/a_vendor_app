@@ -15,8 +15,9 @@ def users():
      users= User.query.all()
      results = [
             {
-                "id":user.id,
-               "name":user.name,
+               "id":user.id,
+               "first_name":user.first_name,
+               "last_name":user.last_name,
                "password":user.password,
                "email":user.email,
                "contact":user.contact,
@@ -29,18 +30,25 @@ def users():
 #creating
 @all_users.route('/create', methods =['GET','POST'])
 def new_user():
-    name = request.json['name']
+    first_name = request.json['first_name']
+    last_name = request.json['last_name']
     email = request.json['email']
     password = request.json['password']
     contact = request.json['contact']
     locations_id = request.json['locations_id']
 
     #validations
-    if not name:
-       return jsonify({'error':"name is required"}), 400
+    if not first_name:
+       return jsonify({'error':"first name is required"}), 400
     
-    if len(name) < 4:
-        return jsonify({'error':"name should not be less than four characters"})
+    if not last_name:
+       return jsonify({'error':"last name is required"}), 400
+    
+    if len(first_name) < 4:
+        return jsonify({'error':"first name should not be less than four characters"})
+    
+    if len(last_name) < 4:
+        return jsonify({'error':"last name should not be less than four characters"})
     
     if not password:
         return jsonify({'error':"password is required"})
@@ -63,7 +71,7 @@ def new_user():
     #storing the new reviews data
      #creating a hashed password for the database
     hashed_password = generate_password_hash(password)
-    new_user = User(name=name, password=hashed_password, email=email, contact=contact,locations_id=locations_id)
+    new_user = User(first_name=first_name, last_name=last_name, password=hashed_password, email=email, contact=contact,locations_id=locations_id)
 
     #add the new review
     db.session.add(new_user)
@@ -77,7 +85,8 @@ def get_user(id):
 
     response = {
             "id":user.id,
-            "name":user.name,
+            "first_name":user.first_name,
+            "last_name":user.last_name,
             "user_type":user.user_type,
             "email":user.email,
             "contact":user.contact,

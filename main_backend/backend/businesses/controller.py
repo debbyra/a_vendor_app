@@ -1,6 +1,6 @@
 #importing libraries
 from flask import jsonify, request, Blueprint
-from backend.businesses.model import Business
+from backend.businesses.model import Business, BusinessSchema
 from flask_jwt_extended import jwt_required
 from backend.db import db
 
@@ -10,8 +10,8 @@ all_businesses = Blueprint('businesses', __name__,url_prefix='/businesses')
 #create the businesses endpoints
 # get all
 @all_businesses.route('/', methods =['GET'])
+@jwt_required()
 def businesses():
-    
      businesses= Business.query.all()
      results = [
             {
@@ -24,16 +24,16 @@ def businesses():
                 "description":business.description,
                 "employees":business.employees,
                 "locations_id":business.locations_id,
-                "users_id":business.users_id,
+                "user_id":business.user_id,
                 "created_at": business.created_at.strftime('%Y-%m-%d %H:%M:%S')
-            }for business in businesses]
+            } for business in businesses]
         
      return {"count":len(businesses), "businesss":results} 
 
 # create new
 @all_businesses.route('/create', methods =['POST','GET'])
+@jwt_required()
 def new_business():
-    
     bus_name = request.json['bus_name']
     email_addr = request.json['email_addr']
     phone = request.json['phone']
@@ -41,7 +41,7 @@ def new_business():
     logo = request.json['logo']
     description = request.json['description']
     employees = request.json['employees']
-    users_id = request.json['users_id']
+    user_id = request.json['user_id']
     locations_id = request.json['locations_id']
 
     #validations
@@ -65,16 +65,17 @@ def new_business():
     
 
     #storing the new reviews data
-    new_business = Business( bus_name=bus_name,users_id=users_id, email_addr=email_addr,locations_id=locations_id,phone=phone,description=description,logo=logo,employees=employees)
+    new_business = Business( bus_name=bus_name,user_id=user_id, email_addr=email_addr,locations_id=locations_id,phone=phone,description=description,logo=logo,employees=employees)
 
     #add the new review
     db.session.add(new_business)
     db.session.commit()
-    return jsonify({'success':True, 'message':'New business added! '}), 200
+    return jsonify({'success':True, 'message':'New business added!', 'data': BusinessSchema().dump(new_business)}), 200
 
 
 #reading
 @all_businesses.route('/business/<int:id>', methods = ['GET'])
+@jwt_required()
 def get_business(id):
     business = Business.query.get_or_404(id)
 
@@ -87,7 +88,7 @@ def get_business(id):
             "logo":business.logo,
             "city":business.city,
             "locations_id":business.locations_id,
-            "users_id":business.users_id
+            "user_id":business.user_id
         } 
     db.session.add(response)
     db.session.commit()
@@ -95,6 +96,7 @@ def get_business(id):
 
 #updating
 @all_businesses.route('/update/<int:id>', methods = ['PATCH'])
+@jwt_required()
 def update_business(id):
      business = Business.query.get_or_404(id)
      business.bus_name = request.json['bus_name']
@@ -106,7 +108,7 @@ def update_business(id):
 
 #deleting
 @all_businesses.route('/delete/<int:id>',methods = ['DELETE'])
-
+@jwt_required()
 def delete_business(id):
      business = Business.query.get_or_404(id)
      db.session.delete(business)

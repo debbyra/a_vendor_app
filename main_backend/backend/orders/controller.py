@@ -33,7 +33,7 @@ def new_order():
     quantity = request.json['quantity']
     status = request.json['status']
     order_date = request.json['order_date']
-    users_id = request.json['users_id']
+    user_id = request.json['user_id']
     carts_id = request.json['carts_id']
 
     #validations
@@ -44,7 +44,7 @@ def new_order():
         return jsonify({'error': "Enter the quantity"})
 
     #storing the new reviews data
-    new_order = Order( name=name, quantity=quantity,status=status,order_date=order_date,users_id=users_id,carts_id=carts_id)
+    new_order = Order( name=name, quantity=quantity,status=status,order_date=order_date,user_id=user_id,carts_id=carts_id)
 
     #add the new review
     db.session.add(new_order)
@@ -64,7 +64,7 @@ def get_order(id):
             "status":order.status,
             "order_date":order.order_date,
             "created_at": order.created_at.strftime('%Y-%m-%d %H:%M:%S'),
-            "users_id":order.users_id,
+            "user_id":order.user_id,
             "carts_id":order.carts_id
         } 
     db.session.add(response)

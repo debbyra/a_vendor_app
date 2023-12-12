@@ -18,7 +18,7 @@ def reviews():
                 "id":review.id,
                 "review":review.review,
                 "created_at": review.created_at.strftime('%Y-%m-%d %H:%M:%S'),
-                "users_id":review.users_id,
+                "user_id":review.user_id,
                 "orders_id":results.orders_id
             }for review in reviews]
         
@@ -30,7 +30,7 @@ def new_review():
     
     review = request.json['review']
     orders_id = request.json['orders_id']
-    users_id = request.json['users_id']
+    user_id = request.json['user_id']
 
 
     #validations
@@ -39,7 +39,7 @@ def new_review():
     
 
     #storing the new reviews data
-    new_review = Review( review=review,users_id=users_id,orders_id=orders_id)
+    new_review = Review( review=review,user_id=user_id,orders_id=orders_id)
 
     #add the new review
     db.session.add(new_review)
@@ -57,7 +57,7 @@ def get_review(id):
             "review":review.review,
             "created_at": review.created_at.strftime('%Y-%m-%d %H:%M:%S'),
             "orders_id":review.orders_id,
-            "users_id":review.users_id
+            "user_id":review.user_id
         } 
     db.session.add(response)
     db.session.commit()

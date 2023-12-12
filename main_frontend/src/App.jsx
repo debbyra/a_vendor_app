@@ -25,48 +25,68 @@ const IndexLandingPage = () => (
 );
 
 function App() {
+  const userType = localStorage.getItem("user_type");
+
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" index element={<IndexLandingPage />} />
-        <Route path="/dashboard" element={<UserDashboard />} />
         <Route
-          path="/dashboard/biz_profile"
+          path={`/dashboard/${userType}/:id`}
+          element={<UserDashboard />}
+        />
+        <Route
+          path={`/dashboard/biz_profile/${userType}/:id`}
           element={<BusinessProfilePage />}
         />
-        <Route path="/dashboard/account" element={<AccountPage />} />
         <Route
-          path="/dashboard/health-and-beauty"
+          path={`/dashboard/account/${userType}/:id`}
+          element={<AccountPage />}
+        />
+        <Route
+          path={`/dashboard/health-and-beauty/${userType}/:id`}
           element={<HealthAndBeauty />}
         />
         <Route
-          path="/dashboard/top-in-health-and-beauty"
+          path={`/dashboard/top-in-health-and-beauty/${userType}/:id`}
           element={<TopInHealthAndBeauty />}
         />
-        <Route path="/dashboard/cart-page" element={<CartPage />} />
-        <Route path="/dashboard/rating" element={<RatingPage />} />
         <Route
-          path="/dashboard/business_products"
+          path={`/dashboard/cart-page/${userType}/:id`}
+          element={<CartPage />}
+        />
+        <Route
+          path={`/dashboard/rating/${userType}/:id`}
+          element={<RatingPage />}
+        />
+        <Route
+          path={`/dashboard/business_products/${userType}/:id`}
           element={<BusinessProducts />}
         />
         <Route
-          path="/dashboard/single_product"
+          path={`/dashboard/single_product/${userType}/:id`}
           element={<SingleProductPage />}
         />
-        <Route path="/dashboard/all_ratings" element={<AllRatingsPage />} />
+        <Route
+          path={`/dashboard/all_ratings/${userType}/:id`}
+          element={<AllRatingsPage />}
+        />
 
         {/* VENDOR PAGES */}
-        <Route path="/vendor_dashboard" element={<VendorDash />} />
         <Route
-          path="/vendor_dashboard/profile"
+          path={`/dashboard/vendor/:id`}
+          element={<VendorDash />}
+        />
+        <Route
+          path={`/dashboard/vendor/profile/:id`}
           element={<VendorProfilePage />}
         />
         <Route
-          path="/vendor_dashboard/single_product"
+          path={`/dashboard/vendor/single_product/:id`}
           element={<VendorSingleProductPage />}
         />
         <Route
-          path="/vendor_dashboard/upload_product"
+          path={`/dashboard/vendor/upload_product/:id`}
           element={<VendorUploadProductPage />}
         />
       </Routes>

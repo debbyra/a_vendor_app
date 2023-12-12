@@ -1,31 +1,82 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { SignUpForm } from "./LandingPageComponents/SignUpForm";
+import SellerSignInForm from "./LandingPageComponents/SellerSignInForm";
 
 function LoginForm({ closeForm, handleLogin }) {
   // console.log(props);
   const [contact, setContact] = useState("");
   const [password, setPassword] = useState("");
+  const [hasSubmitted, setHasSubmitted] = useState(false);
+  const [data, setData] = useState("");
+
+  const [showSignUpForm, setShowSignUpForm] = useState(false);
+  const [showSellerLoginForm, setShowSellerLoginForm] = useState(false);
 
   const navigate = useNavigate();
 
-  function handleLoginUser() {
-    if (contact.trim() === "" || password.trim() === "") {
-      alert("Please fill in all required fields.");
-      return;
-    } else {
-      console.log("Calling handleLogin");
-      handleLogin;
-      navigate("/dashboard");
-    }
+  function handleLoginUser(e) {
+    e.preventDefault();
+
+    let loginDetails = {
+      contact: contact,
+      password: password,
+    };
+
+    fetch("http://localhost:5000/auth/login", {
+      method: "POST",
+      body: JSON.stringify(loginDetails),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        // Check if there is a message or error in the response data
+        if (data.message) {
+          setData(data.message);
+          if (data.access_token) {
+            localStorage.setItem(
+              "access_token",
+              JSON.stringify(data.access_token)
+            );
+            localStorage.setItem(
+              "first_name",
+              JSON.stringify(data.for.first_name)
+            );
+            navigate(`/dashboard/customer/${data.for.id}`);
+          }
+        } else if (data.error) {
+          setData(data.error);
+        }
+      })
+      .catch((err) => console.log(err));
+
+    // Set state to indicate form submission
+    setHasSubmitted(!hasSubmitted);
+
+    navigate("/dashboard");
   }
+
+  const toggleSignUpForm = () => {
+    setShowSignUpForm(!showSignUpForm);
+  };
+
+  const toggleSellerLoginForm = () => {
+    setShowSellerLoginForm(!showSellerLoginForm);
+  };
 
   return (
     <>
       <h1>
-        <span>Login</span>
+        <span>Customer Login</span>
       </h1>
 
-      <a href="#adminsignin" className="signin">
+      <a
+        href="#sellersignin"
+        className="signin"
+        onClick={toggleSellerLoginForm}
+      >
         Sign In As A Seller
       </a>
 
@@ -55,8 +106,28 @@ function LoginForm({ closeForm, handleLogin }) {
         Close
       </button>
 
+      {showSignUpForm && (
+        <div className="form-popup">
+          <div className="form-container">
+            <SignUpForm closeForm={toggleSignUpForm} />
+          </div>
+        </div>
+      )}
+
+      {showSellerLoginForm && (
+        <div className="form-popup">
+          <div className="form-container">
+            <SellerSignInForm closeForm={toggleSellerLoginForm} />
+          </div>
+        </div>
+      )}
+
       <p>
-        Have no account yet? <a href="#">Register now</a>.
+        Have no account yet?{" "}
+        <a href="#" onClick={toggleSignUpForm}>
+          Register now
+        </a>
+        .
       </p>
     </>
   );

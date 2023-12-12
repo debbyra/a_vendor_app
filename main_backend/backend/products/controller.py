@@ -29,26 +29,28 @@ def products():
 # create new
 @all_products.route('/create', methods =['POST','GET'])
 def new_product():
-    
-    name = request.json['name']
-    price = request.json['price']
-    image = request.json['image']
-    origin = request.json['origin']
-    businesses_id = request.json['businesses_id']
+    name = request.json.get('name')
+    price = request.json.get('price')
+    quantity = request.json.get('quantity')
+    image_url = request.json.get('image_url')
+    video_url = request.json.get('video_url')
 
 
     #validations
-    if not name:
-       return jsonify({'error':"name is required"}), 400
-    
-    if not price:
-        return jsonify({'error': "Enter the price"})
-    
-    if not image:
-        return jsonify({'error':"Add an image"})
+    if not name or not price or not quantity:
+        return jsonify({'error': "Name, price, and quantity are required"}), 400
+
+    if (image_url and video_url) or (not image_url and not video_url):
+        return jsonify({'error': "Provide either an image URL or a video URL, not both or none"}), 400
 
     #storing the new reviews data
-    new_product = Product( name=name, price=price, origin=origin, image=image, businesses_id=businesses_id)
+    new_product = Product(
+        name=name,
+        price=price,
+        quantity=quantity,
+        image_url=image_url,
+        video_url=video_url
+    )
 
     #add the new review
     db.session.add(new_product)
@@ -65,8 +67,9 @@ def get_product(id):
             "id":product.id,
             "name":product.name,
             "price":product.price,
-            "image":product.image,
-            "origin":product.origin,
+            "quantity":product.quantity,
+            "image":product.image_url,
+            "video": product.video_url,
             "created_at": product.created_at.strftime('%Y-%m-%d %H:%M:%S'),
             "businesses_id":product.businesses_id,
         } 
