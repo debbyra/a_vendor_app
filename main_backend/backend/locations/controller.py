@@ -10,6 +10,7 @@ all_locations = Blueprint('locations', __name__,url_prefix='/locations')
 #create the locations endpoints
 # get all
 @all_locations.route('/', methods =['GET'])
+@jwt_required()
 def locations():
     
      locations= Location.query.all()
@@ -26,6 +27,7 @@ def locations():
 
 # create new
 @all_locations.route('/create', methods =['POST','GET'])
+@jwt_required()
 def new_location():
     
     lo_name = request.json['lo_name']
@@ -58,6 +60,7 @@ def new_location():
 
 #reading
 @all_locations.route('/location/<int:id>', methods = ['GET'])
+@jwt_required()
 def get_location(id):
     location = Location.query.get_or_404(id)
 
@@ -73,6 +76,7 @@ def get_location(id):
 
 #updating
 @all_locations.route('/update/<int:id>', methods = ['PATCH'])
+@jwt_required()
 def update_location(id):
      location = Location.query.get_or_404(id)
      location.phone = request.json['phone']
@@ -83,6 +87,7 @@ def update_location(id):
 
 #deleting
 @all_locations.route('/delete/<int:id>',methods = ['DELETE'])
+@jwt_required()
 def delete_location(id):
      location = Location.query.get_or_404(id)
      db.session.delete(location)

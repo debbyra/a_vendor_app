@@ -1,3 +1,4 @@
+import React from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 import UserDashboard from "./pages/UserDashboard";
@@ -16,6 +17,7 @@ import VendorDash from "./pages/vendor_pages/VendorDash";
 import VendorProfilePage from "./pages/vendor_pages/VendorProfilePage";
 import VendorSingleProductPage from "./pages/vendor_pages/VendorSingleProductPage";
 import VendorUploadProductPage from "./pages/vendor_pages/VendorUploadProductPage";
+import Dash from './dashboard/dashboardapp';
 import "./App.css";
 
 // ADMIN PAGES
@@ -34,6 +36,8 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" index element={<IndexLandingPage />} />
+        {/* <Route path="/dashboard" element={<UserDashboard />} /> */}
+        <Route path="/dashboard" element={<Dash />} />
         <Route
           path={`/dashboard/${userType}/:id`}
           element={<UserDashboard />}
@@ -54,6 +58,9 @@ function App() {
           path={`/dashboard/top-in-health-and-beauty/${userType}/:id`}
           element={<TopInHealthAndBeauty />}
         />
+        
+        <Route path="/dashboard/cart-page" element={<CartPage />} />
+        <Route path="/dashboard/rating" element={<RatingPage />} />
         <Route
           path={`/dashboard/cart-page/${userType}/:id`}
           element={<CartPage />}

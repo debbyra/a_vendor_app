@@ -11,6 +11,7 @@ const Sidebar = (props) => {
   const onHealthAndBeautyClick = () => {
     navigate("/dashboard/health-and-beauty");
   };
+<<<<<<< HEAD
 
   const getToken = () =>
     localStorage.getItem("access_token")
@@ -37,11 +38,20 @@ const Sidebar = (props) => {
     } else {
       alert("Please sign in to access your account.");
     }
+=======
+
+  const onAccountClick = () => {
+    navigate("/dashboard/account");
+>>>>>>> d37283c3019152dcc2b047a9ab5760e14a9f1928
   };
 
   const closeSidebar = () => {
     console.log("Closing sidebar"); // Debugging
     props.toggleSidebar(); // Use toggleSidebar to close the sidebar
+  };
+
+  const onServicesClick = () => {
+    navigate("/dashboard/services");
   };
 
   return (
@@ -70,7 +80,10 @@ const Sidebar = (props) => {
                 name={"Health and Beauty"}
               />
             </div>
-            <CategoriesCard src={`/icons/services.png`} name={"Services"} />
+            <div className="services" onClick={onServicesClick}>
+              <CategoriesCard src={`/icons/services.png`} name={"Services"} />
+            </div>
+
             <CategoriesCard src={`/icons/furniture.png`} name={"Furniture"} />
             <CategoriesCard
               src={`/icons/electronics.png`}

@@ -21,8 +21,7 @@ def users():
                "password":user.password,
                "email":user.email,
                "contact":user.contact,
-               "created_at": user.created_at.strftime('%Y-%m-%d %H:%M:%S'),
-               "locations_id":user.locations_id
+               "created_at": user.created_at.strftime('%Y-%m-%d %H:%M:%S')
             }for user in users]
         
      return {"count":len(users), "users":results} 
@@ -71,7 +70,11 @@ def new_user():
     #storing the new reviews data
      #creating a hashed password for the database
     hashed_password = generate_password_hash(password)
+<<<<<<< HEAD
     new_user = User(first_name=first_name, last_name=last_name, password=hashed_password, email=email, contact=contact,locations_id=locations_id)
+=======
+    new_user = User(name=name, password=hashed_password, email=email, contact=contact)
+>>>>>>> d37283c3019152dcc2b047a9ab5760e14a9f1928
 
     #add the new review
     db.session.add(new_user)
@@ -80,6 +83,7 @@ def new_user():
 
 #reading 
 @all_users.route('/user/<int:id>', methods = ['GET'])
+@jwt_required()
 def get_user(id):
     user = User.query.get_or_404(id)
 
@@ -101,6 +105,7 @@ def get_user(id):
 
 #updating
 @all_users.route('/update/<int:id>', methods = ['PATCH'])
+@jwt_required()
 def update_user(id):
      user = User.query.get_or_404(id)
      user.password = request.json['password']
