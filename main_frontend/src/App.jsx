@@ -18,6 +18,9 @@ import VendorSingleProductPage from "./pages/vendor_pages/VendorSingleProductPag
 import VendorUploadProductPage from "./pages/vendor_pages/VendorUploadProductPage";
 import "./App.css";
 
+// ADMIN PAGES
+import AdminAddCategoriesPage from "./pages/admin_pages/AdminAddCategoriesPage";
+
 const IndexLandingPage = () => (
   <div>
     <LandingPage />
@@ -89,6 +92,9 @@ function App() {
           path={`/dashboard/vendor/upload_product/:id`}
           element={<VendorUploadProductPage />}
         />
+
+        {/* ADMIN ROUTES */}
+        <Route path={`/dashboard/admin/add_category`} element={<AdminAddCategoriesPage />} />
       </Routes>
     </BrowserRouter>
   );

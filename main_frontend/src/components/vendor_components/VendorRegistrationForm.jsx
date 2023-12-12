@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import ProductForm from "./ProductForm";
 
 const VendorRegistrationForm = () => {
   const [businessName, setBusinessName] = useState("");
@@ -6,8 +7,6 @@ const VendorRegistrationForm = () => {
   const [location, setLocation] = useState("");
   const [videoUrl, setVideoUrl] = useState("");
   const [category, setCategory] = useState("");
-  const [productName, setProductName] = useState("");
-  const [productDescription, setProductDescription] = useState("");
   const [products, setProducts] = useState([]);
 
   const handleProductSubmit = (productData) => {
@@ -33,7 +32,7 @@ const VendorRegistrationForm = () => {
     ) {
       // Prepare the data for submission
       const formData = {
-        businessName,
+        bus_name: businessName,
         description,
         location,
         videoUrl,

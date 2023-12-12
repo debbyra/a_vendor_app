@@ -6,17 +6,24 @@ business_category_bp = Blueprint("business_category", __name__)
 business_category_schema = BusinessCategorySchema()
 
 # Create a new business category
-@business_category_bp.route("/business-categories", methods=["POST"])
+@business_category_bp.route("/business-categories/create", methods=["POST"])
 def create_business_category():
-    try:
         data = request.get_json()
-        new_category = business_category_schema.load(data)
+
+        if request.method == "POST":
+            name = request.json.get('name')
+            icon = request.json.get('icon')
+
+            if not name:
+                return jsonify({'message': "Please enter the category name"}), 400
+
+            elif not icon:
+                return jsonify({'message': "Category icon is required"}), 400
+
+        new_category = BusinessCategory(name=name, icon=icon)
         db.session.add(new_category)
         db.session.commit()
         return business_category_schema.jsonify(new_category), 201
-    except Exception as e:
-        db.session.rollback()
-        return jsonify({"error": str(e)}), 400
 
 # Get all business categories
 @business_category_bp.route("/business-categories", methods=["GET"])

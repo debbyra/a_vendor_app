@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import axios from "axios";
 
-const CategoryForm = () => {
+const AdminAddCategoriesForm = () => {
   const [categoryName, setCategoryName] = useState("");
   const [categoryIcon, setCategoryIcon] = useState("");
 
@@ -13,26 +12,26 @@ const CategoryForm = () => {
     setCategoryIcon(e.target.value);
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Create a new category object
     const newCategory = {
       name: categoryName,
       icon: categoryIcon,
     };
 
-    try {
-      // Post the new category to the backend
-      const response = await axios.post("/api/categories", newCategory);
-      console.log("Category created:", response.data);
-
-      // Optionally, you can clear the form fields or perform any other actions after successful submission.
-      setCategoryName("");
-      setCategoryIcon("");
-    } catch (error) {
-      console.error("Error creating category:", error);
-    }
+    fetch("http://localhost:5000/business-categories/create", {
+      method: "POST",
+      body: JSON.stringify(newCategory),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -52,7 +51,7 @@ const CategoryForm = () => {
         <div>
           <label htmlFor="categoryIcon">Category Icon:</label>
           <input
-            type="text"
+            type="file"
             id="categoryIcon"
             value={categoryIcon}
             onChange={handleIconChange}
@@ -65,4 +64,4 @@ const CategoryForm = () => {
   );
 };
 
-export default CategoryForm;
+export default AdminAddCategoriesForm;

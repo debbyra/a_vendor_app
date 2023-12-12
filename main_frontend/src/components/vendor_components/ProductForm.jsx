@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const ProductForm = () => {
+export const ProductForm = () => {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [quantity, setQuantity] = useState("");
@@ -27,61 +27,68 @@ const ProductForm = () => {
   };
 
   return (
-    <form onSubmit={handleFormSubmit}>
-      <label>
-        Name:
-        <input
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-      </label>
-      <br />
+    <div className="upload-product">
+      <h3>Upload a Product</h3>
+      <form
+        onSubmit={handleFormSubmit}
+        className="product-user-order"
+        id="product-upload-form"
+      >
+        <label className="update-info-labels">
+          Name:
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+        </label>
+        <br />
 
-      <label>
-        Price:
-        <input
-          type="text"
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
-        />
-      </label>
-      <br />
+        <label className="update-info-labels">
+          Price:
+          <input
+            type="text"
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
+          />
+        </label>
+        <br />
 
-      <label>
-        Quantity:
-        <input
-          type="number"
-          value={quantity}
-          onChange={(e) => setQuantity(e.target.value)}
-        />
-      </label>
-      <br />
+        <label className="update-info-labels">
+          Quantity:
+          <input
+            type="number"
+            value={quantity}
+            onChange={(e) => setQuantity(e.target.value)}
+          />
+        </label>
+        <br />
 
-      <label>
-        Image URL:
-        <input
-          type="text"
-          value={image}
-          onChange={(e) => setImage(e.target.value)}
-        />
-      </label>
-      <br />
+        <label className="update-info-labels">
+          Image URL:
+          <input
+            type="text"
+            value={image}
+            onChange={(e) => setImage(e.target.value)}
+          />
+        </label>
+        <br />
 
-      <label>
-        Video URL:
-        <input
-          type="text"
-          value={video}
-          onChange={(e) => setVideo(e.target.value)}
-        />
-      </label>
-      <br />
+        <label className="update-info-labels">
+          Video URL:
+          <input
+            type="text"
+            value={video}
+            onChange={(e) => setVideo(e.target.value)}
+          />
+        </label>
+        <br />
 
-      {/* Add more fields as needed */}
+        {/* Add more fields as needed */}
 
-      <button type="submit">Submit</button>
-    </form>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
   );
 };
 
