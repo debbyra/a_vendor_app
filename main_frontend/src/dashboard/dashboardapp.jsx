@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Topbar from "./scenes/global/Topbar";
-import Sidebar from "../components/Sidebar";
+import Sidebar from "../components/DashSidebar";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "../theme";
 import Dashboard from "./scenes/dashboard";
@@ -26,13 +26,13 @@ function Dash() {
               alt=""
               onClick={closeSidebar}
             /> */}
-            {/* <Sidebar isSidebar={isSidebar} /> */}
+            <Sidebar isSidebar={isSidebar} />
             <main className="content">
               <Topbar setIsSidebar={setIsSidebar} />
               <Dashboard />
             </main>
           </div>
-          {/* <div className="overlay active" onClick={closeSidebar}></div> */}
+          <div className="overlay active" onClick={closeSidebar}></div>
         </div>
       </ThemeProvider>
     </ColorModeContext.Provider>

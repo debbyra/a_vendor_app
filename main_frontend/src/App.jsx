@@ -36,8 +36,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" index element={<IndexLandingPage />} />
-        {/* <Route path="/dashboard" element={<UserDashboard />} /> */}
-        <Route path="/dashboard" element={<Dash />} />
+        {/* <Route path="/dashboard" element={<Dash />} /> */}
         <Route
           path={`/dashboard/${userType}/:id`}
           element={<UserDashboard />}

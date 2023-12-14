@@ -32,10 +32,6 @@ export const SignUpForm = (props) => {
       email: email,
       contact: contact,
       password: password,
-<<<<<<< HEAD
-=======
-      // locations_id: location_id
->>>>>>> d37283c3019152dcc2b047a9ab5760e14a9f1928
     };
 
     if (password !== confirmPassword) {
@@ -140,13 +136,6 @@ export const SignUpForm = (props) => {
           onChange={handleConfirmPasswordChange}
         ></input>
 
-<<<<<<< HEAD
-=======
-        
-  
-        
-
->>>>>>> d37283c3019152dcc2b047a9ab5760e14a9f1928
         {/* Submit form details */}
         <button type="submit" className="btn">
           Sign Up
